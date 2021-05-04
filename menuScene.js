@@ -28,7 +28,7 @@ class menuScene extends Phaser.Scene{
         
         
         this.add.bitmapText(242, 150, "pixelFont",config.player.name, 28, 1);
-      //  this.add.bitmapText(242, 210, "pixelFont",config.portfolio.loans.name, 28, 1);
+        this.add.bitmapText(242, 210, "pixelFont",config.player.portfolio.loans[0].toString(), 28, 1);
         
 
     }

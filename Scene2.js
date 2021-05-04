@@ -94,17 +94,29 @@ class Scene2 extends Phaser.Scene {
         this.physics.add.overlap(this.player, this.home, this.goHome, null, this);
         this.physics.add.overlap(this.player, this.bank, this.goBank, null, this);
 
+        this.physics.add.overlap(this.player, this.restaurant, this.goResturant, null, this);
+
+        this.physics.add.overlap(this.player, this.boatShop, this.goBoatShop, null, this);
+
         this.physics.add.collider(this.player,this.water);
         this.physics.add.overlap(this.player, this.house, this.houseRepair, null, this);
     }
     businessScene() {
-        console.log("Buy business");
+        this.scene.start("store_scene");
+    }
+
+    goResturant(){
+        this.scene.start("grocery_scene")
     }
     //Players home
     goHome(player, home){
         //this.score+=15;
         this.scoreLabel.text = "Money: " + this.score;
         this.scene.start("gohome", {"score" : this.score});
+    }
+
+    goBoatShop(){
+        this.scene.start("shop_scene");
     }
     //Broken down house loan
     houseRepair(player, house){
@@ -274,6 +286,13 @@ class Scene2 extends Phaser.Scene {
 
         
         this.timeLabel.text = this.displayTime;
+        if(config.bankTimer != this.currentDay){
+            setLoans(Object.values(config.assets), config);
+            config.bankTimer = this.currentDay;
+        }
+        if(config.player.portfolio.assets.length ==4){
+            this.scene.start("gameOver");
+        }
     }
 
   

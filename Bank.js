@@ -70,7 +70,7 @@ class Bank extends Phaser.Scene{
         this.loans_taken.sort();
         config.loans.splice(this.loans_taken[0], this.loans_taken.length);
 
-        this.scene.restart();
+        this.scene.stop();
         this.scene.switch("playGame", {"score" : 25});
     }
 
