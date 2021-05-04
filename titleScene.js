@@ -27,7 +27,7 @@ class titleScene extends Phaser.Scene{
         this.info_button = this.add.image(400, 400, "info");
         this.info_button.setInteractive();
         this.info_button.on("pointerup", function(){
-            alert("Loan shark is an open world property buing game.\n Win buy trying to buy the most amount of properties\n with the least amount of debt from the bank.")
+            alert("Loan shark is an open world property buing game.\nWin by trying to buy the most amount of properties\n with the least amount of debt from the bank.")
         }, this);
 
     }
