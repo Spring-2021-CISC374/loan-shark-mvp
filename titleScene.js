@@ -7,6 +7,7 @@ class titleScene extends Phaser.Scene{
             //lOADING IN THE ASSETS YO!
         this.load.image("logo", "assets/logos/loanSharkLogo.png");
         this.load.image("play", "assets/buttons/button_play.png");
+        this.load.image("info", "assets/buttons/button_info.png");
         this.load.image("bg", "assets/objects/TITLESCENE_BG.png");
     }
     
@@ -19,8 +20,15 @@ class titleScene extends Phaser.Scene{
         this.logo = this.add.image(400, 200, "logo");
         this.leave_button = this.add.image(400, 300, "play");
         
+        
         this.leave_button.setInteractive();
         this.leave_button.on("pointerup", this.leaveMenu, this);
+
+        this.info_button = this.add.image(400, 400, "info");
+        this.info_button.setInteractive();
+        this.info_button.on("pointerup", function(){
+            alert("Loan shark is an open world property buing game.\n Win buy trying to buy the most amount of properties\n with the least amount of debt from the bank.")
+        }, this);
 
     }
     
