@@ -287,7 +287,7 @@ class Scene2 extends Phaser.Scene {
 
         
         this.timeLabel.text = this.displayTime;
-        if(config.bankTimer + 29 < this.currentDay){
+        if(config.bankTimer + 4 < this.currentDay){
             setLoans(Object.values(config.assets), config);
             config.bankTimer = this.currentDay;
         }
