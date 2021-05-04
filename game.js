@@ -71,12 +71,12 @@ class Player {
 
     buyProperty(beingBought){
         if (this.savings >= beingBought.price){
-            console.log("property successfully purchased.");
+            alert("property successfully purchased.");
             this.portfolio.assets.push(beingBought);
             this.savings -= beingBought.price;
             return beingBought.price;
         } else {
-            console.log("you cannot afford this property.");
+            alert("you cannot afford this property.");
             return 0;
         }
         
@@ -164,7 +164,7 @@ var config = {
     width:800,
     height:600,
     backgroundColor:0x000000,
-    scene: [Scene1,Scene2, titleScene,Base_property, home_scene, location_contract_scene,menuScene, Beach, Bank, game_over_scene],
+    scene: [Scene1,Scene2, titleScene,Base_property, home_scene, location_contract_scene,menuScene, Beach, Bank, game_over_scene, shop_scene],
     physics: {
         default: "arcade",
         arcade:{
@@ -173,13 +173,15 @@ var config = {
     },
     player: new Player(),
     assets: {
-        house : new Property("house", 40, 170000),
-        boat : new Property("boat", 20, 75000),
+        house : new Property("house", 4000, 170000),
+        boat : new Property("boat", 2000, 75000),
+        shop : new Property("shop", 9000, 200000),
     },
 
     assetsList: [
          new Property("house", 4000, 170000),
          new Property("boat", 2000, 75000),
+         new Property("shop", 9000, 200000),
     ],
     loans:[
         new Loan("Loan 1", 1000, .08, 14),

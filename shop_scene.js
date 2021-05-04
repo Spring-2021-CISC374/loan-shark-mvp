@@ -1,6 +1,6 @@
-class location_contract_scene extends Phaser.Scene{
+class shop_scene extends Phaser.Scene{
     constructor() {
-        super("house");
+        super("shop_scene");
 
     }
 
@@ -10,14 +10,14 @@ class location_contract_scene extends Phaser.Scene{
     preload() {
         this.load.image("buy", "assets/buttons/button_buy-property.png");
         this.load.image("leave", "assets/buttons/button_return-to-town.png");
-        this.load.image("outside_house", "assets/textures/abandoned_house.png", {
+        this.load.image("back", "assets/textures/ViableShopBackground.png", {
             frameWidth: 400,
             frameHeight: 300
         });
     }
     create(){
         //console.log(this.score);
-        this.background= this.add.tileSprite(0,0, config.width+1000, config.height+1000, "outside_house");
+        this.background= this.add.tileSprite(0,0, config.width+1000, config.height+1000, "back");
         this.background.setOrigin(0,0);
 
 
@@ -29,7 +29,7 @@ class location_contract_scene extends Phaser.Scene{
         this.monthly_revenue = this.add.bitmapText(10, 80, "pixelFont","$1000 a month/$12,000 a year", 32, 1);
 
         this.loan_rate = this.add.bitmapText(10, 120, "pixelFont","Loan amount: $170,000, 8%, 10 years", 32, 1);*/
-        this.text = this.add.bitmapText(200, 150, "pixelFont", config.assets.house.toString(), 45, 1);
+        this.text = this.add.bitmapText(200, 150, "pixelFont", config.assets.shop.toString(), 45, 1);
 
         this.text = this.add.bitmapText(300, 100, "pixelFont", "You have $" +config.player.savings, 30, 1);
 
