@@ -23,6 +23,7 @@ class Bank extends Phaser.Scene{
         this.leave_button.setInteractive();
         this.leave_button.on("pointerup", this.back_to_map, this);
 
+        var onceAMonthText = this.add.bitmapText(260, 460, "pixelFont", "Loans are refreshed every 30 days", 23, 1);
 
         this.loans_taken = [];
         console.log(this.loans_taken);
