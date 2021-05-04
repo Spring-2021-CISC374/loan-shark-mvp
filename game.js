@@ -48,6 +48,14 @@ class Property{
     getProfit(){
         return this.dailyIncome;
     }
+
+    toString(){
+        var name = "Property name: " + this.name;
+        var dailyIncome = "Daily Income: " + this.dailyIncome + " per day";
+        var price = "Price: $" + this.price + "";
+        
+        return name+"\n"+dailyIncome+"\n"+price;
+    }
 }
 
 
@@ -94,6 +102,8 @@ class Player {
         }
     }
 
+    
+
 }
 
 // The portfolio class is where properties the player owns and loans the player has taken out are stored
@@ -122,6 +132,31 @@ class Portfolio {
         return this.dailyReturn;
     }
 
+    grossDebt(){
+        var tot=0;
+        this.loans.forEach(function(item){
+            tot += item.owed;
+        });
+
+        return tot;
+    }
+    totalAssets(){
+        var tot=0;
+        this.assets.forEach(function(item){
+            tot += item.price;
+        });
+
+        return tot;
+    }
+
+    netDebt(){
+        var a = this.grossDebt();
+        var b = this.totalAssets();
+        return b-a;
+    }
+
+    
+
 }
 
 
@@ -129,7 +164,7 @@ var config = {
     width:800,
     height:600,
     backgroundColor:0x000000,
-    scene: [Scene1,Scene2, titleScene,Base_property, home_scene, location_contract_scene,menuScene, Beach, Bank],
+    scene: [Scene1,Scene2, titleScene,Base_property, home_scene, location_contract_scene,menuScene, Beach, Bank, game_over_scene],
     physics: {
         default: "arcade",
         arcade:{
@@ -141,6 +176,11 @@ var config = {
         house : new Property("house", 40, 170000),
         boat : new Property("boat", 20, 75000),
     },
+
+    assetsList: [
+         new Property("house", 4000, 170000),
+         new Property("boat", 2000, 75000),
+    ],
     loans:[
         new Loan("Loan 1", 1000, .08, 14),
         new Loan("Loan 2", 2000, .06, 35),
@@ -149,8 +189,26 @@ var config = {
 
         //new Loan("boat")
     ],
-    bankTimer :1
+    bankTimer :1,
+    hiScore :0
 
+}
+function hiScore(list, config){
+    var total = 0;
+    var i = 0;
+    list.forEach(function(item){
+        
+        if(i >3){
+            total += Math.pow((1+.04), 21)*item.price;
+            i++
+        }
+        else{
+            total += Math.pow((1+.08), 21)*item.price;
+            i++;
+        } 
+    });
+
+    config.hiScore= total.toFixed(2);
 }
 
 function setLoans(properties, config){
@@ -182,6 +240,8 @@ function setLoans(properties, config){
 
     config.loans = new_loans;
 }
+
+hiScore(config.assetsList, config);
 setLoans(Object.values(config.assets), config);
 console.log(config.player.name);
 var game = new Phaser.Game(config);

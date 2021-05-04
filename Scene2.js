@@ -274,6 +274,13 @@ class Scene2 extends Phaser.Scene {
 
         
         this.timeLabel.text = this.displayTime;
+        if(config.bankTimer != this.currentDay){
+            setLoans(Object.values(config.assets), config);
+            config.bankTimer = this.currentDay;
+        }
+        if(config.player.portfolio.assets.length ==2){
+            this.scene.start("gameOver");
+        }
     }
 
   

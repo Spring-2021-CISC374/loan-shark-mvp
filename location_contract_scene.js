@@ -21,14 +21,17 @@ class location_contract_scene extends Phaser.Scene{
         this.background.setOrigin(0,0);
 
 
-        this.housecost = this.add.bitmapText(10, 5, "pixelFont","House cost: $100,000", 32, 1);
+        /*this.housecost = this.add.bitmapText(10, 5, "pixelFont","House cost: $100,000", 32, 1);
         
 
         this.repair_cost = this.add.bitmapText(10, 40, "pixelFont","Repair cost: $70,000", 32, 1);
 
         this.monthly_revenue = this.add.bitmapText(10, 80, "pixelFont","$1000 a month/$12,000 a year", 32, 1);
 
-        this.loan_rate = this.add.bitmapText(10, 120, "pixelFont","Loan amount: $170,000, 8%, 10 years", 32, 1);
+        this.loan_rate = this.add.bitmapText(10, 120, "pixelFont","Loan amount: $170,000, 8%, 10 years", 32, 1);*/
+        this.text = this.add.bitmapText(200, 150, "pixelFont", config.assets.house.toString(), 45, 1);
+
+
         this.cursorKeys = this.input.keyboard.createCursorKeys();
 
 
