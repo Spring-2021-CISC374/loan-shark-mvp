@@ -7,14 +7,17 @@ class titleScene extends Phaser.Scene{
             //lOADING IN THE ASSETS YO!
         this.load.image("logo", "assets/logos/loanSharkLogo.png");
         this.load.image("play", "assets/buttons/button_play.png");
+        this.load.image("bg", "assets/objects/TITLESCENE_BG.png");
     }
     
 
 
     create(){
             // PUTS THINGS ON THE SCREEN YO!
-        this.logo = this.add.image(400, 400, "logo");
-        this.leave_button = this.add.image(400, 200, "play");
+        this.background= this.add.image(400,300, "bg");
+       // this.background.setOrigin(400,300);
+        this.logo = this.add.image(400, 200, "logo");
+        this.leave_button = this.add.image(400, 300, "play");
         
         this.leave_button.setInteractive();
         this.leave_button.on("pointerup", this.leaveMenu, this);
