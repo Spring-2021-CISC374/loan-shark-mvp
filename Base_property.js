@@ -45,9 +45,15 @@ class Base_property extends Phaser.Scene {
     }
     fishing_buttons(scene){
         var Scene2 = scene.scene.get("playGame");
+        //scene.upgrade_button = scene.add.image(174,461, "upgradeBoat");
+        //scene.upgrade_button.setInteractive();
+        
         scene.buy_button = scene.add.image(174, 561, "fishing");
         scene.buy_button.setInteractive();
         scene.buy_button.on("pointerup", Scene2.nextDay, Scene2);
+        scene.buy_button.on("pointerup", function() {
+            config.player.savings += 2000;
+        });
         scene.buy_button.on("pointerup", this.back_to_map, scene);
         scene.leave_button = scene.add.image(571, 561, "leave");
         scene.leave_button.setInteractive();

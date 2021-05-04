@@ -67,6 +67,7 @@ class Player {
         this.credit_score = 500;
         this.savings = 0;
         this.loans_completed =0;
+        this.boat = "rowboat";
     }
 
     buyProperty(beingBought){

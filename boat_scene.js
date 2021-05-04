@@ -12,6 +12,7 @@ class boat_scene extends Phaser.Scene{
         this.load.image("leave", "assets/buttons/button_return-to-town.png");
         this.load.image("sleep", "assets/buttons/sleep_button.png");
         this.load.image("fishing","assets/buttons/button_go-fishing.png");
+        this.load.image("upgradeBoat", "assets/buttons/button_upgrade-boat.png")
         this.load.image("boatUpgrades", "assets/textures/dockBoat.jpg", {
             frameWidth: 400,
             frameHeight: 300
