@@ -100,7 +100,7 @@ class Scene2 extends Phaser.Scene {
         this.physics.add.overlap(this.player, this.house, this.houseRepair, null, this);
     }
     businessScene() {
-        console.log("Buy business");
+        this.scene.start("store_scene");
     }
     //Players home
     goHome(player, home){

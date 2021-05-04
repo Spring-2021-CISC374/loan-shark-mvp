@@ -164,7 +164,8 @@ var config = {
     width:800,
     height:600,
     backgroundColor:0x000000,
-    scene: [Scene1,Scene2, titleScene,Base_property, home_scene, location_contract_scene,menuScene, Beach, Bank, game_over_scene, shop_scene],
+    scene: [Scene1,Scene2, titleScene,Base_property, home_scene, location_contract_scene,menuScene, Beach, Bank,
+         game_over_scene, shop_scene, store_scene],
     physics: {
         default: "arcade",
         arcade:{
@@ -176,12 +177,14 @@ var config = {
         house : new Property("house", 4000, 170000),
         boat : new Property("boat", 2000, 75000),
         shop : new Property("shop", 9000, 200000),
+        store : new Property("store", 5000, 100000),
     },
 
     assetsList: [
          new Property("house", 4000, 170000),
          new Property("boat", 2000, 75000),
          new Property("shop", 9000, 200000),
+         new Property("store", 5000, 100000),
     ],
     loans:[
         new Loan("Loan 1", 1000, .08, 14),
