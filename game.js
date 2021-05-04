@@ -170,9 +170,10 @@ var config = {
     physics: {
         default: "arcade",
         arcade:{
-            debug: true
+            debug: false
         }
     },
+    totalTime: 0,
     player: new Player(),
     assets: {
         house : new Property("house", 4000, 170000),

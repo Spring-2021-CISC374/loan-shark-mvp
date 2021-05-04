@@ -1,6 +1,5 @@
 class Scene2 extends Phaser.Scene {
     
-    totalTime;
     displayTime;
     currentDay;
     //the higher the timerate, the slower the clock moves
@@ -9,7 +8,7 @@ class Scene2 extends Phaser.Scene {
 
     constructor() {
         super("playGame");
-        this.totalTime = 0;
+        config.totalTime = 0;
         this.timeRate = 4;
         this.timeRateCounter = 0;
         this.currentDay = 0;
@@ -82,7 +81,7 @@ class Scene2 extends Phaser.Scene {
 
         
         this.scoreLabel = this.add.bitmapText(10, 5, "pixelFont","Money: " + this.score, 16);
-        this.timeLabel = this.add.bitmapText(10, 20, "pixelFont","Time: " + this.totalTime, 16);
+        this.timeLabel = this.add.bitmapText(10, 20, "pixelFont","Time: " + config.totalTime, 16);
        
         this.cursorKeys = this.input.keyboard.createCursorKeys();
         
@@ -144,7 +143,7 @@ class Scene2 extends Phaser.Scene {
         this.updateTimeOfDay();
 
         //adds your daily returns once per day at midnight
-        if ((this.totalTime%1440 == 421) && (this.timeRateCounter == 0)){
+        if ((config.totalTime%1440 == 421) && (this.timeRateCounter == 0)){
             this.score += config.player.portfolio.dailyReturns(this.currentDay);
             this.scoreLabel.text ="Money:" +this.score.toString();
         }
@@ -249,10 +248,10 @@ class Scene2 extends Phaser.Scene {
 
         
 
-        console.log(this.totalTime);
-        this.totalTime+=(1440-(this.totalTime%1440));
-        this.totalTime+=420;
-        console.log(this.totalTime);
+        console.log(config.totalTime);
+        config.totalTime+=(1440-(config.totalTime%1440));
+        config.totalTime+=420;
+        console.log(config.totalTime);
 
         //this.score += config.player.portfolio.dailyReturns(this.currentDay);
         //this.scoreLabel.text ="Money:" +this.score.toString();
@@ -264,10 +263,10 @@ class Scene2 extends Phaser.Scene {
         this.timeRateCounter++;
         if (this.timeRateCounter == this.timeRate){
             this.timeRateCounter = 0;
-            this.totalTime += 1;
+            config.totalTime += 1;
         }
-        this.timeMod = this.totalTime % 720;
-        if(this.totalTime%1440 >= 720){
+        this.timeMod = config.totalTime % 720;
+        if(config.totalTime%1440 >= 720){
             this.timeSuffix = "PM";
         } else{
             this.timeSuffix = "AM";
@@ -282,7 +281,7 @@ class Scene2 extends Phaser.Scene {
         }
         if (this.hour == 0)
             this.hour = 12;
-        this.currentDay = ((this.totalTime/1440) | 0) + 1;
+        this.currentDay = ((config.totalTime/1440) | 0) + 1;
         this.displayTime = ("day " + this.currentDay + ", " + this.hour.toString() + ":"  + this.minute.toString() + " " + this.timeSuffix);
 
         
