@@ -11,6 +11,7 @@ class Base_property extends Phaser.Scene {
         this.load.image("buy", "assets/buttons/button_buy-property.png");
         this.load.image("leave", "assets/buttons/button_return-to-town.png");
         this.load.image("sleep", "assets/buttons/sleep_button.png");
+        this.load.image("fishing","assets/buttons/button_go-fishing.png");
     }
     create(){
         var Scene2 = this.scene.get("Scene2");
@@ -35,6 +36,16 @@ class Base_property extends Phaser.Scene {
     home_buttons(scene){
         var Scene2 = scene.scene.get("playGame");
         scene.buy_button = scene.add.image(174, 561, "sleep");
+        scene.buy_button.setInteractive();
+        scene.buy_button.on("pointerup", Scene2.nextDay, Scene2);
+        scene.buy_button.on("pointerup", this.back_to_map, scene);
+        scene.leave_button = scene.add.image(571, 561, "leave");
+        scene.leave_button.setInteractive();
+        scene.leave_button.on("pointerup", this.back_to_map, scene);
+    }
+    fishing_buttons(scene){
+        var Scene2 = scene.scene.get("playGame");
+        scene.buy_button = scene.add.image(174, 561, "fishing");
         scene.buy_button.setInteractive();
         scene.buy_button.on("pointerup", Scene2.nextDay, Scene2);
         scene.buy_button.on("pointerup", this.back_to_map, scene);

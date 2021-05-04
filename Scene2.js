@@ -133,6 +133,7 @@ class Scene2 extends Phaser.Scene {
     }
     tada() {
         console.log("trigger boat scene");
+        this.scene.start("boat_scene");
     }
     update() {
 
