@@ -165,7 +165,7 @@ var config = {
     height:600,
     backgroundColor:0x000000,
     scene: [Scene1,Scene2, titleScene,Base_property, home_scene, location_contract_scene,menuScene, Beach, Bank,
-         game_over_scene, shop_scene, store_scene, grocery_scene],
+         game_over_scene, shop_scene, store_scene, grocery_scene,boat_scene],
     physics: {
         default: "arcade",
         arcade:{
