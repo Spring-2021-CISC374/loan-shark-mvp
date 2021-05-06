@@ -36,12 +36,15 @@ class Loan{
 }
 
 class Property{
-    upgrades = [];
-    constructor(name, income, price, upgrades){
+    constructor(name, income, price){
         this.name = name;
         this.dailyIncome = income;
         this.price = price;
-        this.upgrades = upgrades;
+        this.upgrades = [];
+    }
+
+    addUpgrade(Upgrade){
+        this.upgrades.push(Upgrade);
     }
 
     getProfit(){
@@ -61,15 +64,14 @@ class Property{
     }
 }
 
-class Upgrade {
-    
-    constructor(name, price, yield, isOwned){
+class Upgrade{
+    constructor(name, price, output, isOwned){
         this.name = name;
         this.price = price;
-        this.yield = yield;
-        this.isOwned = false;
+        this.output = output;
+        this.isOwned = isOwned;
     }
-
+    
     purchaseUpgrade(){
         if (this.price <= config.player.savings){
             this.isOwned = true;
@@ -79,9 +81,11 @@ class Upgrade {
         else {
             return ("You cannot afford " + this.name);
         }
-    }
+    } 
+} 
 
-}
+
+
 
 class Player {
     constructor(){
@@ -207,19 +211,19 @@ var config = {
         gasPumps : new Upgrade("install gaspumps outside", 150000, 11000, false),
     },
     assets: {
-        house : new Property("house", 4000, 170000, [this.upgrades.repairs, this.upgrades.backyardPool]),
+        house : new Property("house", 4000, 170000),
         //boat : new Property("boat", 2000, 75000),
-        shop : new Property("shop", 9000, 200000, [this.upgrades.advertising, this.upgrades.gasPumps]),
-        store : new Property("store", 5000, 100000, [this.upgrades.repairs]),
-        grocery : new Property("Grocery Store", 7000, 150000, [this.upgrades.customerService, this.upgrades.extraInventory]),
+        shop : new Property("shop", 9000, 200000),
+        store : new Property("store", 5000, 100000),
+        grocery : new Property("Grocery Store", 7000, 150000),
     },
 
     assetsList: [
-         new Property("house", 4000, 170000, [this.upgrades.repairs, this.upgrades.backyardPool]),
+         new Property("house", 4000, 170000),
          //new Property("boat", 2000, 75000),
-         new Property("shop", 9000, 200000, [this.upgrades.advertising, this.upgrades.gasPumps]),
-         new Property("store", 5000, 100000, [this.upgrades.repairs]),
-         new Property("Grocery Store", 7000, 150000, [this.upgrades.customerService, this.upgrades.extraInventory]),
+         new Property("shop", 9000, 200000),
+         new Property("store", 5000, 100000),
+         new Property("Grocery Store", 7000, 150000),
     ],
     loans:[
         new Loan("Loan 1", 1000, .08, 14),
