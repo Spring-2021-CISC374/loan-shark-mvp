@@ -39,6 +39,9 @@ class grocery_scene extends Phaser.Scene{
 
         var Base_property = this.scene.get("Base_property");
         Base_property.add_buttons(this, config.assets.grocery);
+
+        //scene.buyInventoryUpgrade = scene.add.image(174, 501, "buy");
+        //scene.buyInventoryUpgrade.setInteractive();
         
 
     }

@@ -41,6 +41,7 @@ class Property{
         this.dailyIncome = income;
         this.price = price;
         this.upgrades = [];
+        this.isOwned = false;
     }
 
     addUpgrade(Upgrade){
@@ -49,8 +50,10 @@ class Property{
 
     getProfit(){
         this.profit = this.dailyIncome;
-        for (i = 0; i < this.upgrades.length; i++){
-            this.profit += upgrades[i].yield;
+        if (this.upgrades.length > 0){
+            for (i = 0; i < this.upgrades.length; i++){
+                this.profit += upgrades[i].yield;
+            }
         }
         return this.profit;
     }
@@ -98,14 +101,17 @@ class Player {
     }
 
     buyProperty(beingBought){
-        if (this.savings >= beingBought.price){
+        if ((this.savings >= beingBought.price) && (!beingBought.isOwned)){
             alert("property successfully purchased.");
             this.portfolio.assets.push(beingBought);
             this.savings -= beingBought.price;
+            beingBought.isOwned = true;
             return beingBought.price;
-        } else {
+        } else if (!beingBought.isOwned){
             alert("you cannot afford this property.");
             return 0;
+        } else {
+            alert("you already own this property.");
         }
         
     }
