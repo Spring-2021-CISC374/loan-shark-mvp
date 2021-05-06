@@ -198,20 +198,28 @@ var config = {
     },
     totalTime: 0,
     player: new Player(),
+    upgrades: {
+        advertising : new Upgrade("advertising", 10000, 1500, false),
+        repairs : new Upgrade("repair damages", 30000, 5000, false),
+        customerService : new Upgrade("improved customer service", 25000, 2000, false),
+        backyardPool : new Upgrade("install swimming pool", 40000, 3000, false),
+        extraInventory : new Upgrade("expand inventory", 100000, 8000, false),
+        gasPumps : new Upgrade("install gaspumps outside", 150000, 11000, false),
+    },
     assets: {
-        house : new Property("house", 4000, 170000),
+        house : new Property("house", 4000, 170000, [this.upgrades.repairs, this.upgrades.backyardPool]),
         //boat : new Property("boat", 2000, 75000),
-        shop : new Property("shop", 9000, 200000),
-        store : new Property("store", 5000, 100000),
-        grocery : new Property("Grocery Store", 7000, 150000),
+        shop : new Property("shop", 9000, 200000, [this.upgrades.advertising, this.upgrades.gasPumps]),
+        store : new Property("store", 5000, 100000, [this.upgrades.repairs]),
+        grocery : new Property("Grocery Store", 7000, 150000, [this.upgrades.customerService, this.upgrades.extraInventory]),
     },
 
     assetsList: [
-         new Property("house", 4000, 170000),
+         new Property("house", 4000, 170000, [this.upgrades.repairs, this.upgrades.backyardPool]),
          //new Property("boat", 2000, 75000),
-         new Property("shop", 9000, 200000),
-         new Property("store", 5000, 100000),
-         new Property("Grocery Store", 7000, 150000)
+         new Property("shop", 9000, 200000, [this.upgrades.advertising, this.upgrades.gasPumps]),
+         new Property("store", 5000, 100000, [this.upgrades.repairs]),
+         new Property("Grocery Store", 7000, 150000, [this.upgrades.customerService, this.upgrades.extraInventory]),
     ],
     loans:[
         new Loan("Loan 1", 1000, .08, 14),
