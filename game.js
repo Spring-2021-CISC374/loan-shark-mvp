@@ -36,17 +36,20 @@ class Loan{
 }
 
 class Property{
-    name;
-    dailyIncome;
-    price;
-    constructor(name, income, price){
+    upgrades = [];
+    constructor(name, income, price, upgrades){
         this.name = name;
         this.dailyIncome = income;
         this.price = price;
+        this.upgrades = upgrades;
     }
 
     getProfit(){
-        return this.dailyIncome;
+        this.profit = this.dailyIncome;
+        for (i = 0; i < this.upgrades.length; i++){
+            this.profit += upgrades[i].yield;
+        }
+        return this.profit;
     }
 
     toString(){
@@ -58,7 +61,27 @@ class Property{
     }
 }
 
+class Upgrade {
+    
+    constructor(name, price, yield, isOwned){
+        this.name = name;
+        this.price = price;
+        this.yield = yield;
+        this.isOwned = false;
+    }
 
+    purchaseUpgrade(){
+        if (this.price <= config.player.savings){
+            this.isOwned = true;
+            config.player.savings -= this.price;
+            return (this.name + " successfully purchased.");
+        }
+        else {
+            return ("You cannot afford " + this.name);
+        }
+    }
+
+}
 
 class Player {
     constructor(){
