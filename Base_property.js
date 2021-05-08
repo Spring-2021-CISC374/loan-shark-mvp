@@ -12,6 +12,7 @@ class Base_property extends Phaser.Scene {
         this.load.image("leave", "assets/buttons/button_return-to-town.png");
         this.load.image("sleep", "assets/buttons/sleep_button.png");
         this.load.image("fishing","assets/buttons/button_go-fishing.png");
+        this.load.image("buyUpgrade", "assets/buttons/button_buy-upgrade.png");
     }
     create(){
         var Scene2 = this.scene.get("Scene2");
@@ -32,11 +33,11 @@ class Base_property extends Phaser.Scene {
         scene.leave_button.on("pointerup", this.back_to_map, scene);
     }
     // for adding upgrade purchasing buttons to a scene
-    add_upgrades(scene, upgrade){
+    add_upgrades(scene, asset, upgrade){
         scene.upgrade_button = scene.add.image(174, 501, "buy");
         scene.buy_button.setInteractive();
         scene.buy_button.on("pointerup", function(){
-            this.buy_upgrade(upgrade);
+            this.buy_upgrade(upgrade, asset);
         }, this);
         scene.leave_button = scene.add.image(571, 501, "leave");
         scene.leave_button.setInteractive();
@@ -85,7 +86,7 @@ class Base_property extends Phaser.Scene {
     buy_upgrade(upgrade){
         console.log("buy upgrade");
         
-        alert (config.player.buyUpgrade(upgrade));
+        alert (config.player.buyUpgrade(upgrade, property));
         console.log(config.player.portfolio);
     }
 

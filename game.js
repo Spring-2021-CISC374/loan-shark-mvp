@@ -75,9 +75,10 @@ class Upgrade{
         this.isOwned = isOwned;
     }
     
-    purchaseUpgrade(){
+    purchaseUpgrade(property){
         if (this.price <= config.player.savings){
             this.isOwned = true;
+            property.addUpgrade(this);
             config.player.savings -= this.price;
             return (this.name + " successfully purchased.");
         }
@@ -116,8 +117,9 @@ class Player {
         
     }
 
-    buyUpgrade(beingBought){
-        return purchaseUpgrade(beingBought);
+    buyUpgrade(beingBought, property){
+
+        return beingBought.purchaseUpgrade(property);
     }
 
     takeLoan(loan){
