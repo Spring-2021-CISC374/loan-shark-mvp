@@ -84,6 +84,10 @@ class Upgrade{
     }
     
     purchaseUpgrade(property){
+        if (this.isOwned){
+            alert ("You already own this upgrade.");
+            return;
+        }
         if (this.price <= config.player.savings){
             this.isOwned = true;
             property.addUpgrade(this);
