@@ -116,6 +116,10 @@ class Player {
         
     }
 
+    buyUpgrade(beingBought){
+        return purchaseUpgrade(beingBought);
+    }
+
     takeLoan(loan){
         //console.log(config.loans[0].toString());
         console.log(loan.toString());

@@ -31,6 +31,18 @@ class Base_property extends Phaser.Scene {
         scene.leave_button.setInteractive();
         scene.leave_button.on("pointerup", this.back_to_map, scene);
     }
+    // for adding upgrade purchasing buttons to a scene
+    add_upgrades(scene, upgrade){
+        scene.upgrade_button = scene.add.image(174, 501, "buy");
+        scene.buy_button.setInteractive();
+        scene.buy_button.on("pointerup", function(){
+            this.buy_upgrade(upgrade);
+        }, this);
+        scene.leave_button = scene.add.image(571, 501, "leave");
+        scene.leave_button.setInteractive();
+        scene.leave_button.on("pointerup", this.back_to_map, scene);
+    }
+    
     // Adds in buttons for your home, go back to town, or go to sleep
     
     home_buttons(scene){
@@ -69,6 +81,14 @@ class Base_property extends Phaser.Scene {
         this.score -= config.player.buyProperty(asset);
         console.log(config.player.portfolio);
     }
+
+    buy_upgrade(upgrade){
+        console.log("buy upgrade");
+        
+        alert (config.player.buyUpgrade(upgrade));
+        console.log(config.player.portfolio);
+    }
+
     back_to_map(){
         this.scene.start("playGame", {"score" : config.player.savings});
     }
