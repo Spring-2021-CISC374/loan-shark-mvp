@@ -80,10 +80,10 @@ class Upgrade{
             this.isOwned = true;
             property.addUpgrade(this);
             config.player.savings -= this.price;
-            return (this.name + " successfully purchased.");
+            alert(this.name + " successfully purchased.");
         }
         else {
-            return ("You cannot afford " + this.name);
+            alert("You cannot afford " + this.name);
         }
     } 
 } 
@@ -124,7 +124,7 @@ class Player {
                 tempProp = this.portfolio[i].name;
             }
         }
-        return beingBought.purchaseUpgrade(tempProp);
+        beingBought.purchaseUpgrade(tempProp);
     }
 
     takeLoan(loan){

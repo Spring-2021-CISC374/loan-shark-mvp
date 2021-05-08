@@ -83,10 +83,10 @@ class Base_property extends Phaser.Scene {
         console.log(config.player.portfolio);
     }
 
-    buy_upgrade(upgrade){
+    buy_upgrade(upgrade, property){
         console.log("buy upgrade");
         
-        alert (config.player.buyUpgrade(upgrade, property));
+        config.player.buyUpgrade(upgrade, property);
         console.log(config.player.portfolio);
     }
 
