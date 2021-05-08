@@ -21,7 +21,7 @@ John Pedicone — menu bug fixes, title screen, created new art
 
 Mario Durso - Loan generation system, Scene for every property, End Scene and win condition, balancing changes
 
-Joe Linthicum - Bug fix for property purchases, Balancing changes
+Joe Linthicum - Bug fix for property purchases, Balancing changes, added the ability to upgrade properties
 
 Kyle Oak - boat scene
 
