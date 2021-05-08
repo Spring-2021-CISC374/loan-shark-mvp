@@ -40,10 +40,10 @@ class shop_scene extends Phaser.Scene{
         var Base_property = this.scene.get("Base_property");
         if (config.assets.shop.isOwned){
             if (config.upgrades.gasPumps.isOwned){
-                this.text = this.add.bitmapText(125, 150, "pixelFont", "Current Yield: $14500/day. \nThere are no more upgrades available.", 45, 1);
+                this.text = this.add.bitmapText(200, 150, "pixelFont", config.assets.shop.toString(), 45, 1);
                 Base_property.add_leave_button(this);
             } else {
-                this.text = this.add.bitmapText(135, 150, "pixelFont", "Current Yield: $9000/day. \n Can install gas pumps for $150000. \nUpgraded yield: $14500/day", 45, 1);
+                this.text = this.add.bitmapText(200, 150, "pixelFont", config.assets.shop.toString() +"Buy Gas Pumps for $150000\n Upgrade yield: $5500/day", 45, 1);
                 Base_property.add_upgrades(this, config.assets.shop, config.upgrades.gasPumps);
             }
         } else{

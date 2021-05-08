@@ -60,13 +60,21 @@ class Property{
 
     toString(){
         var name = "Property name: " + this.name;
-        var dailyIncome = "Daily Income: " + this.dailyIncome + " per day";
-        var price = "Price: $" + this.price + "";
-        
-        return name+"\n"+dailyIncome+"\n"+price;
+        var dailyIncome = "Daily Income: $" + this.getProfit() + "/day";
+        var price = "Price: $" + this.price;
+        var upgrades = "Upgrades owned: \n";
+        this.upgrades.forEach(element => {
+            upgrades += element.name + "\n";
+        })
+        if (!this.isOwned) {
+            return name+"\n"+dailyIncome+"\n"+price;
+        }
+        if (this.upgrades.length > 0){
+            return name+"\n"+dailyIncome+"\n"+upgrades+"\n";
+        }
+        return name+"\n"+dailyIncome+"\n";
     }
 }
-
 class Upgrade{
     constructor(name, price, output, isOwned){
         this.name = name;
@@ -225,7 +233,7 @@ var config = {
         customerService : new Upgrade("improved customer service", 25000, 1500, false),
         backyardPool : new Upgrade("install swimming pool", 40000, 2000, false),
         extraInventory : new Upgrade("expand inventory", 100000, 4000, false),
-        gasPumps : new Upgrade("install gaspumps outside", 150000, 5500, false),
+        gasPumps : new Upgrade("gaspumps outside", 150000, 5500, false),
     },
     assets: {
         house : new Property("house", 4000, 170000),
