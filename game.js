@@ -51,9 +51,9 @@ class Property{
     getProfit(){
         this.profit = this.dailyIncome;
         if (this.upgrades.length > 0){
-            for (i = 0; i < this.upgrades.length; i++){
-                this.profit += upgrades[i].yield;
-            }
+            this.upgrades.forEach (element =>{
+                this.profit += element.output;
+            })
         }
         return this.profit;
     }
@@ -118,13 +118,13 @@ class Player {
     }
 
     buyUpgrade(beingBought, property){
-        tempProp;
-        for (i = 0; i < this.portfolio.length; i++){
-            if (this.portfolio[i].name == property.name){
-                tempProp = this.portfolio[i].name;
+        this.tempProp;
+        this.portfolio.assets.forEach (element =>{
+            if (element.name == property.name){
+                this.tempProp = element;
             }
-        }
-        beingBought.purchaseUpgrade(tempProp);
+        })
+        beingBought.purchaseUpgrade(this.tempProp);
     }
 
     takeLoan(loan){
@@ -220,12 +220,12 @@ var config = {
     totalTime: 0,
     player: new Player(),
     upgrades: {
-        advertising : new Upgrade("advertising", 10000, 1500, false),
+        advertising : new Upgrade("advertising", 10000, 1000, false),
         repairs : new Upgrade("repair damages", 30000, 5000, false),
-        customerService : new Upgrade("improved customer service", 25000, 2000, false),
-        backyardPool : new Upgrade("install swimming pool", 40000, 3000, false),
-        extraInventory : new Upgrade("expand inventory", 100000, 8000, false),
-        gasPumps : new Upgrade("install gaspumps outside", 150000, 11000, false),
+        customerService : new Upgrade("improved customer service", 25000, 1500, false),
+        backyardPool : new Upgrade("install swimming pool", 40000, 2000, false),
+        extraInventory : new Upgrade("expand inventory", 100000, 4000, false),
+        gasPumps : new Upgrade("install gaspumps outside", 150000, 5500, false),
     },
     assets: {
         house : new Property("house", 4000, 170000),
