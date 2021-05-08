@@ -10,6 +10,7 @@ class store_scene extends Phaser.Scene{
     preload() {
         this.load.image("buy", "assets/buttons/button_buy-property.png");
         this.load.image("leave", "assets/buttons/button_return-to-town.png");
+        this.load.image("buyUpgrade", "assets/buttons/button_buy-upgrade.png");
         this.load.image("back", "assets/textures/businessOldBackground.png", {
             frameWidth: 400,
             frameHeight: 300
@@ -29,8 +30,7 @@ class store_scene extends Phaser.Scene{
         this.monthly_revenue = this.add.bitmapText(10, 80, "pixelFont","$1000 a month/$12,000 a year", 32, 1);
 
         this.loan_rate = this.add.bitmapText(10, 120, "pixelFont","Loan amount: $170,000, 8%, 10 years", 32, 1);*/
-        this.text = this.add.bitmapText(200, 150, "pixelFont", config.assets.store.toString(), 45, 1);
-
+        
         this.text = this.add.bitmapText(300, 100, "pixelFont", "You have $" +config.player.savings, 30, 1);
 
 
@@ -38,7 +38,20 @@ class store_scene extends Phaser.Scene{
 
 
         var Base_property = this.scene.get("Base_property");
-        Base_property.add_buttons(this, config.assets.store);
+
+        if (config.assets.store.isOwned){
+            if (config.upgrades.advertising.isOwned){
+                this.text = this.add.bitmapText(200, 150, "pixelFont", config.assets.store.toString(), 45, 1);
+                Base_property.add_leave_button(this);
+            } else {
+                this.text = this.add.bitmapText(200, 150, "pixelFont", config.assets.store.toString() +"Buy advertising for $10000\n Upgrade yield: $1000/day", 45, 1);
+                Base_property.add_upgrades(this, config.assets.store, config.upgrades.advertising);
+            }
+        } else{
+            
+            this.text = this.add.bitmapText(200, 150, "pixelFont", config.assets.store.toString(), 45, 1);
+            Base_property.add_buttons(this, config.assets.store);
+        }
         
 
     }
