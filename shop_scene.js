@@ -9,6 +9,7 @@ class shop_scene extends Phaser.Scene{
     }
     preload() {
         this.load.image("buy", "assets/buttons/button_buy-property.png");
+        this.load.image("buyUpgrade", "assets/buttons/button_buy-upgrade.png");
         this.load.image("leave", "assets/buttons/button_return-to-town.png");
         this.load.image("back", "assets/textures/ViableShopBackground.png", {
             frameWidth: 400,
@@ -38,7 +39,11 @@ class shop_scene extends Phaser.Scene{
 
 
         var Base_property = this.scene.get("Base_property");
-        Base_property.add_buttons(this, config.assets.shop);
+        if (config.assets.shop.isOwned){
+            Base_property.add_upgrades(this, config.assets.shop, config.upgrades.gasPumps);
+        } else{
+            Base_property.add_buttons(this, config.assets.shop);
+        }
         
 
     }

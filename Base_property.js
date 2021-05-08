@@ -34,9 +34,9 @@ class Base_property extends Phaser.Scene {
     }
     // for adding upgrade purchasing buttons to a scene
     add_upgrades(scene, asset, upgrade){
-        scene.upgrade_button = scene.add.image(174, 501, "buy");
-        scene.buy_button.setInteractive();
-        scene.buy_button.on("pointerup", function(){
+        scene.upgrade_button = scene.add.image(174, 501, "buyUpgrade");
+        scene.upgrade_button.setInteractive();
+        scene.upgrade_button.on("pointerup", function(){
             this.buy_upgrade(upgrade, asset);
         }, this);
         scene.leave_button = scene.add.image(571, 501, "leave");

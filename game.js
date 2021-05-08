@@ -118,8 +118,13 @@ class Player {
     }
 
     buyUpgrade(beingBought, property){
-
-        return beingBought.purchaseUpgrade(property);
+        tempProp;
+        for (i = 0; i < this.portfolio.length; i++){
+            if (this.portfolio[i].name == property.name){
+                tempProp = this.portfolio[i].name;
+            }
+        }
+        return beingBought.purchaseUpgrade(tempProp);
     }
 
     takeLoan(loan){
