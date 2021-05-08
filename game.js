@@ -236,7 +236,7 @@ var config = {
         repairs : new Upgrade("repairs", 30000, 5000, false),
         customerService : new Upgrade("improved customer service", 25000, 1500, false),
         backyardPool : new Upgrade("install swimming pool", 40000, 2000, false),
-        extraInventory : new Upgrade("expand inventory", 100000, 4000, false),
+        extraInventory : new Upgrade("extended inventory", 100000, 4000, false),
         gasPumps : new Upgrade("gaspumps outside", 150000, 5500, false),
     },
     assets: {
