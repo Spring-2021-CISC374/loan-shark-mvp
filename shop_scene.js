@@ -30,7 +30,6 @@ class shop_scene extends Phaser.Scene{
         this.monthly_revenue = this.add.bitmapText(10, 80, "pixelFont","$1000 a month/$12,000 a year", 32, 1);
 
         this.loan_rate = this.add.bitmapText(10, 120, "pixelFont","Loan amount: $170,000, 8%, 10 years", 32, 1);*/
-        this.text = this.add.bitmapText(200, 150, "pixelFont", config.assets.shop.toString(), 45, 1);
 
         this.text = this.add.bitmapText(300, 100, "pixelFont", "You have $" +config.player.savings, 30, 1);
 
@@ -40,8 +39,16 @@ class shop_scene extends Phaser.Scene{
 
         var Base_property = this.scene.get("Base_property");
         if (config.assets.shop.isOwned){
-            Base_property.add_upgrades(this, config.assets.shop, config.upgrades.gasPumps);
+            if (config.upgrades.gasPumps.isOwned){
+                this.text = this.add.bitmapText(125, 150, "pixelFont", "Current Yield: $14500/day. \nThere are no more upgrades available.", 45, 1);
+                Base_property.add_leave_button(this);
+            } else {
+                this.text = this.add.bitmapText(135, 150, "pixelFont", "Current Yield: $9000/day. \n Can install gas pumps for $150000. \nUpgraded yield: $14500/day", 45, 1);
+                Base_property.add_upgrades(this, config.assets.shop, config.upgrades.gasPumps);
+            }
         } else{
+            
+            this.text = this.add.bitmapText(200, 150, "pixelFont", config.assets.shop.toString(), 45, 1);
             Base_property.add_buttons(this, config.assets.shop);
         }
         
