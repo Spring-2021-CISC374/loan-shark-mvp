@@ -11,14 +11,14 @@ class shop_scene extends Phaser.Scene{
         this.load.image("buy", "assets/buttons/button_buy-property.png");
         this.load.image("buyUpgrade", "assets/buttons/button_buy-upgrade.png");
         this.load.image("leave", "assets/buttons/button_return-to-town.png");
-        this.load.image("back", "assets/textures/ViableShopBackground.png", {
+        this.load.image("backShop", "assets/textures/ViableShopBackground.png", {
             frameWidth: 400,
             frameHeight: 300
         });
     }
     create(){
         //console.log(this.score);
-        this.background= this.add.tileSprite(0,0, config.width+1000, config.height+1000, "back");
+        this.background= this.add.tileSprite(0,0, config.width+1000, config.height+1000, "backShop");
         this.background.setOrigin(0,0);
 
 
