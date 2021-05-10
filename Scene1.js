@@ -61,12 +61,18 @@ class Scene1 extends Phaser.Scene {
             frameWidth: 32,
             frameHeight: 32
         });
+
+        this.load.image("menuBG", "assets/objects/menu_bg.png", {
+            frameWidth: 32,
+            frameHeight: 32
+        });
        
     }
     create() {
         this.add.text(20,20,"Loading game...");
         //this.person = new  Player();
         //console.log(Player.name);
+        //this.scene.start("gameOver", {"score" : this.score});
         this.scene.start("titleS", {"score" : this.score});
     }
     

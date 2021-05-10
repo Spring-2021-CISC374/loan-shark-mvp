@@ -32,7 +32,7 @@ class game_over_scene extends Phaser.Scene{
         }, this);
 
 
-        this.add.bitmapText(10, 200, "pixelFont", "You finished with "+ (config.player.portfolio.grossDebt()).toFixed(2)+ " in total debt", 40, 1);
+        this.add.bitmapText(10, 200, "pixelFont", "You finished with "+ (config.player.portfolio.grossDebt()).toFixed(2).toLocaleString()+ " in total debt", 40, 1);
         //this.add.bitmapText(10, 250, "pixelFont", "You finished with "+ config.player.portfolio.totalAssets().toFixed(2)+ " in assets", 25, 1);
         //this.add.bitmapText(10, 300, "pixelFont", "You finished with "+ config.player.portfolio.netDebt().toFixed(2)+ " in net debt(debt - assets purchased)", 25, 1);
 

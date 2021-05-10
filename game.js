@@ -25,10 +25,10 @@ class Loan{
     }
 
     toString(){
-        var amount = "Loan amount: $" + this.principle;
+        var amount = "Loan amount: $" + this.principle.toLocaleString();
         var interest = "Intrest Rate: " + this.interestRate*100 + "% per week";
         var duration = "Duration: " + this.duration + " days";
-        var payment = "Payment: $" + this.getPayment() + " per week";
+        var payment = "Payment: $" + this.getPayment().toLocaleString() + " per week";
         return this.name+"\n"+amount+"\n"+interest+"\n"+duration+"\n"+payment;
     }
 
@@ -195,7 +195,7 @@ class Portfolio {
             tot += item.owed;
         });
 
-        return tot;
+        return tot.toFixed(2).toLocaleString();
     }
     totalAssets(){
         var tot=0;
@@ -212,6 +212,19 @@ class Portfolio {
         return b-a;
     }
 
+    createMenuString(){
+        if(this.assets.length ==0){
+            return "You own no properties";
+        }
+        var key = 1;
+        var string = ""
+        //this.assets.forEach(function(item){
+            //string = string + item.name.toString()+ "\n";
+           // key ++;
+        //});
+        return "You own " + this.assets.length + " properties.";
+    }
+
     
 
 }
@@ -221,7 +234,7 @@ var config = {
     width:800,
     height:600,
     backgroundColor:0x000000,
-    scene: [Scene1,Scene2, titleScene,Base_property, home_scene, location_contract_scene,menuScene, Beach, Bank,
+    scene: [Scene1,menuScene,Scene2, titleScene,Base_property, home_scene, location_contract_scene, Beach, Bank,
          game_over_scene, shop_scene, store_scene, grocery_scene,boat_scene],
     physics: {
         default: "arcade",
@@ -240,19 +253,19 @@ var config = {
         gasPumps : new Upgrade("gaspumps outside", 150000, 5500, false),
     },
     assets: {
-        house : new Property("house", 4000, 170000),
+        house : new Property("house2", 4000, 170000),
         //boat : new Property("boat", 2000, 75000),
         shop : new Property("shop", 9000, 200000),
-        store : new Property("store", 5000, 100000),
-        grocery : new Property("Grocery Store", 7000, 150000),
+        store : new Property("business", 5000, 100000),
+        grocery : new Property("restaurant", 7000, 150000),
     },
 
     assetsList: [
-         new Property("house", 4000, 170000),
+         new Property("house2", 4000, 170000),
          //new Property("boat", 2000, 75000),
          new Property("shop", 9000, 200000),
-         new Property("store", 5000, 100000),
-         new Property("Grocery Store", 7000, 150000),
+         new Property("business", 5000, 100000),
+         new Property("restaurant", 7000, 150000),
     ],
     loans:[
         new Loan("Loan 1", 1000, .08, 14),
@@ -286,12 +299,13 @@ function hiScore(list, config){
 
 function setLoans(properties, config){
     var new_loans = [];
-    var min = 1000000000000000000000000000000000000000000000000;
+    var min = [];
     properties.forEach(function(item, index){
-        if(item.price < min){
-            min = item.price;
-        }
+        min.push(item.price);
     });
+
+    min.sort();
+
 
     var rates = config.player.calculate_player_rates();
     var durations = [];
@@ -303,9 +317,11 @@ function setLoans(properties, config){
    // const random = Math.floor(Math.random() * months.length);
     for(var i = 1; i < 4; i++){
         var randomDuration = Math.floor(Math.random() * durations.length);
+        var random1 = Math.floor(Math.random() * 3);
+        var random2 = Math.floor(Math.random() * 3);
        
         var name = "Loan " + i;
-        var loan=new Loan(name, min, rates[i-1], durations[randomDuration]);
+        var loan=new Loan(name, min[random1], rates[random2], durations[randomDuration]);
         new_loans.push(loan);
         durations.splice(randomDuration, 1);
     }

@@ -16,6 +16,11 @@ class Scene2 extends Phaser.Scene {
     }
     init(data){
         this.score = config.player.savings;
+        this.scene.launch("menuS");
+        this.scene.bringToTop("menuS");
+        this.scene.sleep("menuS");
+        
+
     }
     create() {
     
@@ -69,7 +74,7 @@ class Scene2 extends Phaser.Scene {
         this.restaurant.body.setSize(60,60);
         this.restaurant.body.setOffset(10,20);
         //Our first loan house
-        this.house = this.physics.add.image(100,100, "house");
+        this.house = this.physics.add.image(100,100, "house2");
         //Boat
         this.boat = this.physics.add.image(180, 540, "rowboat");
         this.boat.body.setSize(120,40);
@@ -80,13 +85,13 @@ class Scene2 extends Phaser.Scene {
         //this.player = this.physics.add.sprite(300,150, "player");
 
         
-        this.scoreLabel = this.add.bitmapText(10, 5, "pixelFont","Money: " + this.score, 16);
-        this.timeLabel = this.add.bitmapText(10, 20, "pixelFont","Time: " + config.totalTime, 16);
-       
+       // this.scoreLabel = this.add.bitmapText(10, 5, "pixelFont","Money:  " + this.score, 16);
+        //this.scoreLabel2 = this.add.bitmapText(10, 20, "pixelFont","Debt: " + config.player.portfolio.grossDebt(), 16);
+        this.timeLabel = this.add.bitmapText(10, 5, "pixelFont","Time: " + config.totalTime, 16);
+        
         this.cursorKeys = this.input.keyboard.createCursorKeys();
         
         
-
         this.player_anim(this);
         this.physics.add.overlap(this.player, this.boat, this.tada, null, this);
         this.physics.add.overlap(this.player, this.business, this.businessScene, null, this);
@@ -101,6 +106,7 @@ class Scene2 extends Phaser.Scene {
         this.physics.add.overlap(this.player, this.house, this.houseRepair, null, this);
     }
     businessScene() {
+        //this.scene.stop("menuS")
         this.scene.start("store_scene");
     }
 
@@ -110,7 +116,7 @@ class Scene2 extends Phaser.Scene {
     //Players home
     goHome(player, home){
         //this.score+=15;
-        this.scoreLabel.text = "Money: " + this.score;
+       // this.scoreLabel.text = "Money: " + this.score;
         this.scene.start("gohome", {"score" : this.score});
     }
 
@@ -120,13 +126,14 @@ class Scene2 extends Phaser.Scene {
     //Broken down house loan
     houseRepair(player, house){
         //this.score+=15;
-        this.scoreLabel.text = "Money: " + this.score;
+        //this.scoreLabel.text = "Money: " + this.score;
         //this.scene.start("house", {"score" : this.score});
         this.scene.start("house",{"score" : this.score});
         this.scene.switch("playGame","house");
     }
 
     goBank(){
+        //this.scene.stop("menuS")
         this.scene.start("bank");
         this.scene.switch("playGame","bank");
     }
@@ -145,7 +152,7 @@ class Scene2 extends Phaser.Scene {
         //adds your daily returns once per day at midnight
         if ((config.totalTime%1440 == 421) && (this.timeRateCounter == 0)){
             this.score += config.player.portfolio.dailyReturns(this.currentDay);
-            this.scoreLabel.text ="Money:" +this.score.toString();
+           // this.scoreLabel.text ="Money:" +this.score.toString();
         }
 
     }
@@ -155,10 +162,15 @@ class Scene2 extends Phaser.Scene {
         this.water.tilePositionX += Math.random() * .08- 0.04;
     }
     loadMenu(){
-        this.input.keyboard.on('keydown-A', function (event) {
-          console.log("MENU OPEN");
-          this.scene.start("menuS", {"score" : this.score});},this);
         
+
+        var a = this.scene.get("menuS");
+        a.scene.setVisible(true);
+        this.input.keyboard.on('keydown-A', function (event) {
+          this.scene.bringToTop("menuS");
+          this.scene.run("menuS");
+        
+        },this);
     }
 
     movePlayerManager(){
@@ -201,7 +213,7 @@ class Scene2 extends Phaser.Scene {
         if(this.cursorKeys.space.isDown){
             this.score+=1;
             console.log(this.score);
-            this.scoreLabel.text ="Money:" +this.score.toString();
+           // this.scoreLabel.text ="Money:" +this.score.toString();
             
         }
         if (isMoving);
@@ -282,7 +294,7 @@ class Scene2 extends Phaser.Scene {
         if (this.hour == 0)
             this.hour = 12;
         this.currentDay = ((config.totalTime/1440) | 0) + 1;
-        this.displayTime = ("day " + this.currentDay + ", " + this.hour.toString() + ":"  + this.minute.toString() + " " + this.timeSuffix);
+        this.displayTime = ("Day " + this.currentDay + ", " + this.hour.toString() + ":"  + this.minute.toString() + " " + this.timeSuffix);
 
         
         this.timeLabel.text = this.displayTime;
