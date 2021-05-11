@@ -125,6 +125,7 @@ class Player {
             return 0;
         } else {
             alert("you already own this property.");
+            return 0;
         }
         
     }

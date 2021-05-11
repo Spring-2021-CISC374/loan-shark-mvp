@@ -31,8 +31,8 @@ class menuScene extends Phaser.Scene{
         //this.scoreLabel = this.add.bitmapText(10, 20, "pixelFont","Money:  " + config.player.savings, 16);
         //this.scoreLabel2 = this.add.bitmapText(10, 36, "pixelFont","Debt: " + config.player.portfolio.grossDebt(), 16);
         
-        this.scoreLabel = this.add.text(10, 20, "Money:  " + config.player.savings, { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif', color: "#FFFFFF"});
-        this.scoreLabel2 = this.add.text(10, 36, "Money:  " + config.player.savings, { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif', color: "#FFFFFF"});
+        this.scoreLabel = this.add.text(160, 100, "Money:  " + config.player.savings, { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif', color: "#FFFFFF"});
+        this.scoreLabel2 = this.add.text(160, 120, "Money:  " + config.player.savings, { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif', color: "#FFFFFF"});
 
         this.properties = this.add.text(325, 100, "Assets:  " + config.player.portfolio.createMenuString(), { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif', 
         color: "#00FFFF", fontSize: '16px', backgroundColor: '#00000', align: "center"});
@@ -42,7 +42,7 @@ class menuScene extends Phaser.Scene{
         //this.add.bitmapText(242, 210, "pixelFont",config.player.portfolio.loans[0].toString(), 28, 1);
         this.propImages = this.add.group();
 
-        this.createInfoImage();
+        //this.createInfoImage();
        // this.moreAssetInfo();
 
     }
@@ -53,9 +53,9 @@ class menuScene extends Phaser.Scene{
         this.leave();
        // this.moreAssetInfo();
 
-        this.scoreLabel.setText("Money:  " + config.player.savings);
-        this.scoreLabel2.setText("Debt: " + config.player.portfolio.grossDebt());
-        //this.properties.setText("Properties Owned:\n\t "+ config.player.portfolio.createMenuString());
+        this.scoreLabel.setText("Money:  " + config.player.savings.toLocaleString());
+        this.scoreLabel2.setText("Debt: " + config.player.portfolio.grossDebt().toLocaleString());
+        this.properties.setText("Properties Owned:\n\t "+ config.player.portfolio.createMenuString());
         //this.createInfoImage();
 
     }
@@ -76,20 +76,19 @@ class menuScene extends Phaser.Scene{
         //this.info.setText(info); 
     }
 
-    createInfoImage(){
-        var startY = 170;
-        config.player.portfolio.assets.forEach(element => {
-            //this.propImages.create(170, startY , element.name);
+    createInfoImage(element, i){
+        var startY = 170 + (95 *i);
+        //config.player.portfolio.assets.forEach(element => {
+            this.propImages.create(170, startY , element.name);
             this.add.text(325, startY, element.toString(), { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif', color: "#ffffff"});
             startY += 95;
-        })
+        //})
         
     }
 
     leave(){
         
         this.input.keyboard.on('keydown-A', function (event) {
-            this.scene.stop()
             this.scene.sleep("menuS");
         },this);
 

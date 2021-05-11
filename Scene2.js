@@ -16,9 +16,9 @@ class Scene2 extends Phaser.Scene {
     }
     init(data){
         this.score = config.player.savings;
-        this.scene.launch("menuS");
-        this.scene.bringToTop("menuS");
-        this.scene.sleep("menuS");
+        //this.scene.launch("menuS");
+       // this.scene.bringToTop("menuS");
+      //  this.scene.sleep("menuS");
         
 
     }
@@ -146,7 +146,7 @@ class Scene2 extends Phaser.Scene {
         config.player.savings = this.score;
         this.updateShoreline();
         this.movePlayerManager();
-        this.loadMenu();
+        //this.loadMenu();
         this.updateTimeOfDay();
 
         //adds your daily returns once per day at midnight
@@ -161,17 +161,7 @@ class Scene2 extends Phaser.Scene {
         this.water.tilePositionY += Math.random() * 0.05 + 0.05;
         this.water.tilePositionX += Math.random() * .08- 0.04;
     }
-    loadMenu(){
-        
-
-        var a = this.scene.get("menuS");
-        a.scene.setVisible(true);
-        this.input.keyboard.on('keydown-A', function (event) {
-          this.scene.bringToTop("menuS");
-          this.scene.run("menuS");
-        
-        },this);
-    }
+    
 
     movePlayerManager(){
         var isMoving = 0;

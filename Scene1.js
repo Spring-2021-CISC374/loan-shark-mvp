@@ -69,11 +69,31 @@ class Scene1 extends Phaser.Scene {
        
     }
     create() {
+        this.scene.launch("menuS");
+        this.scene.bringToTop("menuS");
+        this.scene.sleep("menuS");
         this.add.text(20,20,"Loading game...");
         //this.person = new  Player();
         //console.log(Player.name);
         //this.scene.start("gameOver", {"score" : this.score});
-        this.scene.start("titleS", {"score" : this.score});
+        this.scene.launch("titleS", {"score" : this.score});
+        this.scene.setVisible(false);
     }
+
+    update(){
+        this.loadMenu();
+    }
+    loadMenu(){
+        var isA = this.scene.isActive("playGame");
+       // console.log(isA);
+        if((isA)){
+            this.input.keyboard.on('keydown-A', function (event) {
+            this.scene.bringToTop("menuS");
+            this.scene.wake("menuS");
+            
+            },this);
+        }
+    }
+
     
 }

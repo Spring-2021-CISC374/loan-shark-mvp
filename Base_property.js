@@ -86,8 +86,12 @@ class Base_property extends Phaser.Scene {
  
     buy_property(asset){
         console.log("buy property");
+        var test = this.scene.get('menuS');
         
-        this.score -= config.player.buyProperty(asset);
+        var score = config.player.buyProperty(asset);
+        if(score != 0){
+            test.createInfoImage(asset, config.player.portfolio.assets.length-1);
+        }
         console.log(config.player.portfolio);
     }
 
