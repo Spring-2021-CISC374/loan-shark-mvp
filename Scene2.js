@@ -19,6 +19,8 @@ class Scene2 extends Phaser.Scene {
         //this.scene.launch("menuS");
        // this.scene.bringToTop("menuS");
       //  this.scene.sleep("menuS");
+      this.spriteX = data.playerLocation[0];
+      this.spriteY = data.playerLocation[1];
         
 
     }
@@ -74,7 +76,7 @@ class Scene2 extends Phaser.Scene {
         this.restaurant.body.setSize(60,60);
         this.restaurant.body.setOffset(10,20);
         //Our first loan house
-        this.house = this.physics.add.image(100,100, "house2");
+        this.house2 = this.physics.add.image(100,100, "house2");
         //Boat
         this.boat = this.physics.add.image(180, 540, "rowboat");
         this.boat.body.setSize(120,40);
@@ -103,7 +105,7 @@ class Scene2 extends Phaser.Scene {
         this.physics.add.overlap(this.player, this.boatShop, this.goBoatShop, null, this);
 
         this.physics.add.collider(this.player,this.water);
-        this.physics.add.overlap(this.player, this.house, this.houseRepair, null, this);
+        this.physics.add.overlap(this.player, this.house2, this.houseRepair, null, this);
     }
     businessScene() {
         //this.scene.stop("menuS")
@@ -227,7 +229,7 @@ class Scene2 extends Phaser.Scene {
     }
     player_anim(scene){
 
-        scene.player = scene.physics.add.sprite(300,150, "player");
+        scene.player = scene.physics.add.sprite(this.spriteX,this.spriteY, "player");
         scene.anims.create({
             key: "player_anim",
             frames: scene.anims.generateFrameNumbers("player"),
@@ -258,7 +260,7 @@ class Scene2 extends Phaser.Scene {
         //this.score += config.player.portfolio.dailyReturns(this.currentDay);
         //this.scoreLabel.text ="Money:" +this.score.toString();
 
-        this.scene.start("playGame", {"score" : this.score});
+        this.scene.start("playGame", {"score" : this.score, "playerLocation": this.getPropertyLocation("home")});
     }
 
     updateTimeOfDay(){
@@ -297,5 +299,28 @@ class Scene2 extends Phaser.Scene {
         }
     }
 
+    getPropertyLocation(key){
+        if(key == "house2"){
+            return [this.house2.x, this.house2.y+70]
+        }
+        if(key == "shop"){
+            return [this.boatShop.x, this.boatShop.y+70]
+        }
+        if(key == "business"){
+            return [this.business.x, this.business.y+70]
+        }
+        if(key == "restaurant"){
+            return [this.restaurant.x, this.restaurant.y+70]
+        }
+        if(key == "bank"){
+            return [this.bank.x, this.bank.y+70]
+        }
+        if(key == "home"){
+            return [this.home.x, this.home.y+70]
+        }
+        if(key == "fishing"){
+            return [140, this.boat.y-70]
+        }
+    }
   
 }

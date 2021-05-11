@@ -69,10 +69,15 @@ class Bank extends Phaser.Scene{
 
     back_to_map(){
         this.loans_taken.sort();
+        
         config.loans.splice(this.loans_taken[0], this.loans_taken.length);
 
+        var map = this.scene.get("playGame");
+        map.player.x = map.getPropertyLocation("bank")[0];
+        map.player.y = map.getPropertyLocation("bank")[1];
+
         this.scene.stop();
-        this.scene.switch("playGame", {"score" : 25});
+        this.scene.start("playGame", {"score" : 25, "playerLocation": map.getPropertyLocation("bank")});
     }
 
     create_loans(){

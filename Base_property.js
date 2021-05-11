@@ -30,7 +30,9 @@ class Base_property extends Phaser.Scene {
         }, this);
         scene.leave_button = scene.add.image(571, 501, "leave");
         scene.leave_button.setInteractive();
-        scene.leave_button.on("pointerup", this.back_to_map, scene);
+        scene.leave_button.on("pointerup", function(){
+            this.back_to_map(asset.name, scene);
+        }, this);
     }
     // for adding upgrade purchasing buttons to a scene
     add_upgrades(scene, asset, upgrade){
@@ -49,7 +51,9 @@ class Base_property extends Phaser.Scene {
     add_leave_button(scene){
         scene.leave_button = scene.add.image(571, 501, "leave");
         scene.leave_button.setInteractive();
-        scene.leave_button.on("pointerup", this.back_to_map, scene);
+        scene.leave_button.on("pointerup", function(){
+            this.back_to_map();
+        }, scene);
     }
     
     // Adds in buttons for your home, go back to town, or go to sleep
@@ -59,10 +63,14 @@ class Base_property extends Phaser.Scene {
         scene.buy_button = scene.add.image(174, 561, "sleep");
         scene.buy_button.setInteractive();
         scene.buy_button.on("pointerup", Scene2.nextDay, Scene2);
-        scene.buy_button.on("pointerup", this.back_to_map, scene);
+        scene.buy_button.on("pointerup", function(){
+            this.back_to_map("home", scene);
+        }, this);
         scene.leave_button = scene.add.image(571, 561, "leave");
         scene.leave_button.setInteractive();
-        scene.leave_button.on("pointerup", this.back_to_map, scene);
+        scene.leave_button.on("pointerup", function(){
+            this.back_to_map("home", scene);
+        }, this);
     }
     fishing_buttons(scene){
         var Scene2 = scene.scene.get("playGame");
@@ -75,10 +83,14 @@ class Base_property extends Phaser.Scene {
         scene.buy_button.on("pointerup", function() {
             config.player.savings += 2000;
         });
-        scene.buy_button.on("pointerup", this.back_to_map, scene);
+        scene.buy_button.on("pointerup", function(){
+            this.back_to_map("fishing", scene);
+        }, this);
         scene.leave_button = scene.add.image(571, 561, "leave");
         scene.leave_button.setInteractive();
-        scene.leave_button.on("pointerup", this.back_to_map, scene);
+        scene.leave_button.on("pointerup", function(){
+            this.back_to_map("fishing", scene);
+        }, this);
     }
     
 
@@ -102,8 +114,9 @@ class Base_property extends Phaser.Scene {
         console.log(config.player.portfolio);
     }
 
-    back_to_map(){
-        this.scene.start("playGame", {"score" : config.player.savings});
+    back_to_map(asset, scene){
+        var map = this.scene.get("playGame");
+        scene.scene.start("playGame", {"score" : config.player.savings, "playerLocation": map.getPropertyLocation(asset)});
     }
 
     test(){

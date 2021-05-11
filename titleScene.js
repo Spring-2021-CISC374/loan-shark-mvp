@@ -39,7 +39,7 @@ class titleScene extends Phaser.Scene{
     }
     leaveMenu(){
             //LEAVES THE MENU AND STARTS THE GAME YO!
-            this.scene.start("playGame", {"score" : 10}, {"totalTime" : 0});
+            this.scene.start("playGame", {"score" : 10, "playerLocation": [300, 150]}, {"totalTime" : 0});
         };
     
 
