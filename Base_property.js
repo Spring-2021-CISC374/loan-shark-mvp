@@ -43,17 +43,19 @@ class Base_property extends Phaser.Scene {
         }, this);
         scene.leave_button = scene.add.image(571, 501, "leave");
         scene.leave_button.setInteractive();
-        scene.leave_button.on("pointerup", this.back_to_map, scene);
+        scene.leave_button.on("pointerup", function(){
+            this.back_to_map(asset.name, scene);
+        }, this);
     }
 
     //For when there is nothing left to buy
 
-    add_leave_button(scene){
+    add_leave_button(scene, asset){
         scene.leave_button = scene.add.image(571, 501, "leave");
         scene.leave_button.setInteractive();
         scene.leave_button.on("pointerup", function(){
-            this.back_to_map();
-        }, scene);
+            this.back_to_map(asset.name, scene);
+        }, this);
     }
     
     // Adds in buttons for your home, go back to town, or go to sleep
