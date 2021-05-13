@@ -42,7 +42,7 @@ class store_scene extends Phaser.Scene{
         if (config.assets.store.isOwned){
             if (config.upgrades.advertising.isOwned){
                 this.text = this.add.bitmapText(200, 150, "pixelFont", config.assets.store.toString(), 45, 1);
-                Base_property.add_leave_button(this);
+                Base_property.add_leave_button(this, config.assets.store);
             } else {
                 this.text = this.add.bitmapText(200, 150, "pixelFont", config.assets.store.toString() +"Buy advertising for $10000\n Upgrade yield: $1000/day", 45, 1);
                 Base_property.add_upgrades(this, config.assets.store, config.upgrades.advertising);

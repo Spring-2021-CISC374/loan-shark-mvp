@@ -42,7 +42,7 @@ class grocery_scene extends Phaser.Scene{
         if (config.assets.grocery.isOwned){
             if (config.upgrades.extraInventory.isOwned){
                 this.text = this.add.bitmapText(200, 150, "pixelFont", config.assets.grocery.toString(), 45, 1);
-                Base_property.add_leave_button(this);
+                Base_property.add_leave_button(this, config.assets.grocery);
             } else {
                 this.text = this.add.bitmapText(200, 150, "pixelFont", config.assets.grocery.toString() +"Expand inventory for $100000\n Upgrade yield: $4000/day", 45, 1);
                 Base_property.add_upgrades(this, config.assets.grocery, config.upgrades.extraInventory);

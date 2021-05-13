@@ -41,7 +41,7 @@ class location_contract_scene extends Phaser.Scene{
         if (config.assets.house.isOwned){
             if (config.upgrades.repairs.isOwned){
                 this.text = this.add.bitmapText(200, 150, "pixelFont", config.assets.house.toString(), 45, 1);
-                Base_property.add_leave_button(this);
+                Base_property.add_leave_button(this, config.assets.house);
             } else {
                 this.text = this.add.bitmapText(200, 150, "pixelFont", config.assets.house.toString() +"Buy repairs for $30000\n Upgrade yield: $5000/day", 45, 1);
                 Base_property.add_upgrades(this, config.assets.house, config.upgrades.repairs);
