@@ -25,7 +25,8 @@ class Scene2 extends Phaser.Scene {
 
     }
     create() {
-    
+
+        config.player.boat = config.boatList[config.player.boatIndex];
         
         this.background= this.add.tileSprite(0,0, config.width, config.height, "background");
         this.sand = this.add.tileSprite(400, 450, config.width, 80, "sand");
@@ -78,7 +79,7 @@ class Scene2 extends Phaser.Scene {
         //Our first loan house
         this.house2 = this.physics.add.image(100,100, "house2");
         //Boat
-        this.boat = this.physics.add.image(180, 540, config.player.boat);
+        this.boat = this.physics.add.image(180, 540, config.player.boat.name);
         this.boat.body.setSize(120,40);
         this.boat.angle = 180;
 

@@ -75,41 +75,30 @@ class Base_property extends Phaser.Scene {
     
     fishing_buttons(scene){
         var Scene2 = scene.scene.get("playGame");
-        if (config.player.boat != "speedboat") {
+        if (config.player.boatIndex < config.boatList.length - 1) {
             scene.upgrade_button = scene.add.image(174,461, "upgradeBoat");
             scene.upgrade_button.setInteractive();
             scene.upgrade_button.on("pointerup", function(){
-                if (config.player.boat == "raft") {
-                    if (config.player.savings >= 10000) {
-                        config.player.savings -= 10000;
-                        config.player.boat = "rowboat";
-                        alert("rowboat successfully purchased.");
-                    }else {
-                        alert("you cannot afford the rowboat, you need $10000");
+                if (config.player.boatIndex == config.boatList.length - 1)
+                    alert("You already have the best boat!");
+                else {
+                    if (config.player.savings >= config.player.boat.upgradeCost) {
+                        config.player.savings -= config.player.boat.upgradeCost;
+                        config.player.boat = config.boatList[++config.player.boatIndex];
+                        alert(config.player.boat.name + " successfully purchased.");
+                        this.back_to_map("fishing", scene);
+                    }
+                    else {
+                        alert("You cannot afford this upgrade yet.");
                     }
                 }
-                else if (config.player.boat == "rowboat") {
-                    if (config.player.savings >= 15000) {
-                        config.player.savings -= 15000;
-                        config.player.boat = "speedboat";
-                        alert("speedboat successfully purchased, your boat is at maximum level.");
-                    }else {
-                        alert("you cannot afford the speedboat, you need $15000");
-                    }
-                }
-                
             }, this);
         }
         scene.buy_button = scene.add.image(174, 561, "fishing");
         scene.buy_button.setInteractive();
         scene.buy_button.on("pointerup", Scene2.nextDay, Scene2);
         scene.buy_button.on("pointerup", function() {
-            if (config.player.boat == "raft")
-                config.player.savings += 2000;
-            else if (config.player.boat == "rowboat")
-                config.player.savings += 4000;
-            else if (config.player.boat == "speedboat")
-                config.player.savings += 8000;
+            config.player.savings += config.player.boat.profits;
         });
         scene.buy_button.on("pointerup", function(){
             this.back_to_map("fishing", scene);

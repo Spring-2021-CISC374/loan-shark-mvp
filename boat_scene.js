@@ -25,7 +25,15 @@ class boat_scene extends Phaser.Scene{
         this.background.setOrigin(0,0);
 
         this.housecost = this.add.bitmapText(10, 5, "pixelFont","Let's Sail The Seas!", 32, 1);
-        
+    
+        this.boatcost = this.add.bitmapText(10, 300, "pixelFont","Current Fishing profits: $" + config.player.boat.profits + "/day", 32, 1);
+
+        if (config.player.boatIndex < config.boatList.length - 1)
+            this.boatUpgrade = this.add.bitmapText(10, 340, "pixelFont","Boat Upgrade cost: $" + config.player.boat.upgradeCost + "\nBenefit: +$" + (config.boatList[config.player.boatIndex+1].profits - config.player.boat.profits) + " per fishing day", 32, 1);
+        else
+        this.housecost = this.add.bitmapText(10, 340, "pixelFont","You own the best boat!", 32, 1);
+            
+
         this.cursorKeys = this.input.keyboard.createCursorKeys();
 
 

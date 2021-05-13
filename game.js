@@ -101,7 +101,16 @@ class Upgrade{
 } 
 
 
-
+class Boat{
+    name;
+    profits;
+    upgradeCost;
+    constructor(name, profits, upgradeCost) {
+        this.name = name;
+        this.profits = profits;
+        this.upgradeCost = upgradeCost;
+    }
+}
 
 class Player {
     constructor(){
@@ -110,7 +119,9 @@ class Player {
         this.credit_score = 500;
         this.savings = 0;
         this.loans_completed =0;
-        this.boat = "raft";
+        this.boatIndex = 0;
+        this.boat;
+        
     }
 
     buyProperty(beingBought){
@@ -260,7 +271,11 @@ var config = {
         store : new Property("business", 5000, 100000),
         grocery : new Property("restaurant", 7000, 150000),
     },
-
+    boatList: [
+        new Boat("raft", 2000, 10000),
+        new Boat("rowboat", 4000, 20000),
+        new Boat("speedboat", 8000, 9999999999),
+    ],
     assetsList: [
          new Property("house2", 4000, 170000),
          //new Property("boat", 2000, 75000),
