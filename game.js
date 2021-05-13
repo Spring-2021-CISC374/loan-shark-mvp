@@ -272,6 +272,7 @@ var config = {
         grocery : new Property("restaurant", 7000, 150000),
     },
     boatList: [
+        //       "name", profits, upgradeCost
         new Boat("raft", 2000, 10000),
         new Boat("rowboat", 4000, 20000),
         new Boat("speedboat", 8000, 9999999999),
