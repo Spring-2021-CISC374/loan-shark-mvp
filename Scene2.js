@@ -78,7 +78,7 @@ class Scene2 extends Phaser.Scene {
         //Our first loan house
         this.house2 = this.physics.add.image(100,100, "house2");
         //Boat
-        this.boat = this.physics.add.image(180, 540, "rowboat");
+        this.boat = this.physics.add.image(180, 540, config.player.boat);
         this.boat.body.setSize(120,40);
         this.boat.angle = 180;
 
@@ -301,22 +301,22 @@ class Scene2 extends Phaser.Scene {
 
     getPropertyLocation(key){
         if(key == "house2"){
-            return [this.house2.x, this.house2.y+70]
+            return [this.house2.x, this.house2.y+60]
         }
         if(key == "shop"){
-            return [this.boatShop.x, this.boatShop.y+70]
+            return [this.boatShop.x, this.boatShop.y+60]
         }
         if(key == "business"){
-            return [this.business.x, this.business.y+70]
+            return [this.business.x, this.business.y+60]
         }
         if(key == "restaurant"){
-            return [this.restaurant.x, this.restaurant.y+70]
+            return [this.restaurant.x, this.restaurant.y+60]
         }
         if(key == "bank"){
-            return [this.bank.x, this.bank.y+70]
+            return [this.bank.x, this.bank.y+60]
         }
         if(key == "home"){
-            return [this.home.x, this.home.y+70]
+            return [this.home.x, this.home.y+60]
         }
         if(key == "fishing"){
             return [140, this.boat.y-70]

@@ -74,14 +74,27 @@ class Base_property extends Phaser.Scene {
     }
     fishing_buttons(scene){
         var Scene2 = scene.scene.get("playGame");
-        //scene.upgrade_button = scene.add.image(174,461, "upgradeBoat");
-        //scene.upgrade_button.setInteractive();
-        
+        if (config.player.boat != "speedboat") {
+            scene.upgrade_button = scene.add.image(174,461, "upgradeBoat");
+            scene.upgrade_button.setInteractive();
+            scene.upgrade_button.on("pointerup", function(){
+                if (config.player.boat == "raft")
+                    config.player.boat = "rowboat";
+                else if (config.player.boat == "rowboat")
+                    config.player.boat = "speedboat";
+                this.back_to_map("fishing", scene);
+            }, this);
+        }
         scene.buy_button = scene.add.image(174, 561, "fishing");
         scene.buy_button.setInteractive();
         scene.buy_button.on("pointerup", Scene2.nextDay, Scene2);
         scene.buy_button.on("pointerup", function() {
-            config.player.savings += 2000;
+            if (config.player.boat == "raft")
+                config.player.savings += 2000;
+            else if (config.player.boat == "rowboat")
+                config.player.savings += 4000;
+            else if (config.player.boat == "speedboat")
+                config.player.savings += 8000;
         });
         scene.buy_button.on("pointerup", function(){
             this.back_to_map("fishing", scene);
