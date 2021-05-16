@@ -1,3 +1,4 @@
+
 class Scene2 extends Phaser.Scene {
     
     displayTime;
@@ -102,7 +103,10 @@ class Scene2 extends Phaser.Scene {
         this.player_anim(this);
         this.rain = this.add.tileSprite(0,0, 1800, 1800, "rain");
         this.rain.visible = false;
-
+        this.rainBuildup = 1;
+        this.light = this.add.image(0,0,"light");
+        this.light.setOrigin(0,0);
+        this.light.setAlpha(0.1);
         this.physics.add.overlap(this.player, this.boat, this.tada, null, this);
         this.physics.add.overlap(this.player, this.business, this.businessScene, null, this);
         this.physics.add.overlap(this.player, this.home, this.goHome, null, this);
@@ -152,7 +156,32 @@ class Scene2 extends Phaser.Scene {
     tada() {
         this.scene.start("boat_scene");
     }
+    
+    async startRain() {
+        config.rainCounter = -400;
+        this.rain.visible = true;
+        config.rainedYesterday = true;
+        for(var i = 0; i <= 2000; i++) {
+            this.rain.setAlpha((i)/2000);
+            await new Promise(r => setTimeout(r, 10));
+            console.log(i);
+        }
+        console.log("rain is officially starting");
+        config.rainCounter = 2000;
+    }
+    startRain() {
+        console.log(this.rainBuildup);
+        this.rain.visible = true;
+        this.rain.setAlpha((this.rainBuildup++)/1000);
+        this.rain.tilePositionX += 0.5;
+        this.rain.tilePositionY -= .8;
+        if (this.rainBuildup == 1000) {
+            config.rainCounter = 2000;
+            this.rainBuildup = 0;
+        }
+    }
     update() {
+
 
         config.player.savings = this.score;
         this.updateShoreline();
@@ -163,7 +192,12 @@ class Scene2 extends Phaser.Scene {
             this.rain.visible = true;
             this.updateRain();
         } else {
-            this.rain.visible = false;
+            if (config.rainCounter != -400) {
+                this.rain.visible = false;
+            } else {
+                this.startRain();
+            }
+            
         }
         //adds your daily returns once per day at midnight
         if ((config.totalTime%1440 == 421) && (this.timeRateCounter == 0)){
@@ -172,6 +206,7 @@ class Scene2 extends Phaser.Scene {
         }
 
     }
+    
     updateRain() {
         config.rainCounter--;
         if (config.rainCounter % 100 == 0)
@@ -281,12 +316,12 @@ class Scene2 extends Phaser.Scene {
             config.rainCounter = -300;
             var rainChance = Math.random();
             console.log(rainChance);
-            if (rainChance < 0.4)
+            if (rainChance < 0.15)
                 config.rainCounter = 2000;
         }
             
         
-        
+        config.lightLevel = 0.6;
         console.log(config.totalTime);
         config.totalTime+=(1440-(config.totalTime%1440));
         config.totalTime+=420;
@@ -305,6 +340,20 @@ class Scene2 extends Phaser.Scene {
             this.timeRateCounter = 0;
             config.totalTime += 1;
         }
+        if (config.totalTime % 144 == 0 && config.rainCounter == -300) {
+            var rainChance = Math.random();
+            console.log(rainChance);
+            if (rainChance < 0.015)
+                config.rainCounter = -400;
+        }
+        if (config.totalTime%1440 > 300 && config.totalTime%1440 < 1100 && config.lightLevel < 1) {
+            config.lightLevel+= 0.0005;
+            this.light.setAlpha(1-config.lightLevel);
+        }
+        if (config.totalTime%1440 > 1100) {
+            config.lightLevel -= 0.0005;
+            this.light.setAlpha(1-config.lightLevel);
+        }
         this.timeMod = config.totalTime % 720;
         if(config.totalTime%1440 >= 720){
             this.timeSuffix = "PM";
@@ -321,8 +370,8 @@ class Scene2 extends Phaser.Scene {
         }
         if (this.hour == 0)
             this.hour = 12;
-        if (config.totalTime % 1440 == 440 && config.rainCounter > 0 && !config.rainAlert) {
-            alert("it is currently raining!\nEffect: Gain more money for fishing in the rain");
+        if (config.rainCounter > 0 && !config.rainAlert) {
+            alert("it has started to rain!\nEffect: Gain more money for fishing in the rain");
             config.rainAlert = true;
         }
         this.currentDay = ((config.totalTime/1440) | 0) + 1;

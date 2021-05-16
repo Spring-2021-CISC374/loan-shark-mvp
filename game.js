@@ -262,6 +262,7 @@ var config = {
     rainCounter: 0,
     rainAlert: false,
     rainedYesterday: false,
+    lightLevel: 0.6,
     player: new Player(),
     upgrades: {
         advertising : new Upgrade("advertising", 10000, 1000, false),

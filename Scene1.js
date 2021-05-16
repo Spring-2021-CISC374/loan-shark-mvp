@@ -22,6 +22,7 @@ class Scene1 extends Phaser.Scene {
         this.load.image("restaurant","assets/objects/food.png");
         this.load.image("house", "assets/objects/ViableHouse1.png");
         this.load.image("house2", "assets/objects/ViableHouse2.png");
+        this.load.image("light", "assets/textures/light.png");
 
         this.load.image("boatUpgrades", "assets/textures/ocean.png"); //credit: https://twitter.com/pixil_art/status/1207985208068378625
         
