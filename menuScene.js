@@ -53,8 +53,8 @@ class menuScene extends Phaser.Scene{
         this.leave();
        // this.moreAssetInfo();
 
-        this.scoreLabel.setText("Money:  " + config.player.savings.toLocaleString());
-        this.scoreLabel2.setText("Debt: " + config.player.portfolio.grossDebt().toLocaleString());
+        this.scoreLabel.setText("Money:  $" + config.player.savings.toLocaleString());
+        this.scoreLabel2.setText("Debt: $" + config.player.portfolio.grossDebt().toLocaleString());
         this.properties.setText("Properties Owned:\n\t "+ config.player.portfolio.createMenuString());
         //this.createInfoImage();
 

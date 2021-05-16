@@ -16,6 +16,7 @@ class Scene1 extends Phaser.Scene {
         this.load.image("dock", "assets/textures/dock.png");
         this.load.image("sand", "assets/textures/sand.png");
         this.load.image("sandedge", "assets/textures/sandedge.png");
+        this.load.image("rain", "assets/textures/rain.png");
         this.load.image("grassedge", "assets/textures/grassedge.png");
         this.load.image("dockpillars", "assets/textures/dockpillars.png");
         this.load.image("restaurant","assets/objects/food.png");

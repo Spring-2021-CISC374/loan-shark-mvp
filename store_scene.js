@@ -11,14 +11,18 @@ class store_scene extends Phaser.Scene{
         this.load.image("buy", "assets/buttons/button_buy-property.png");
         this.load.image("leave", "assets/buttons/button_return-to-town.png");
         this.load.image("buyUpgrade", "assets/buttons/button_buy-upgrade.png");
-        this.load.image("backStore", "assets/textures/businessOldBackground.png", {
+        this.load.image("businessOldBackground", "assets/textures/businessOldBackground.png", {
+            frameWidth: 400,
+            frameHeight: 300
+        });
+        this.load.image("businessRestoredBackground", "assets/textures/businessOldBackground.png", {
             frameWidth: 400,
             frameHeight: 300
         });
     }
     create(){
         //console.log(this.score);
-        this.background= this.add.tileSprite(0,0, config.width+1000, config.height+1000, "backStore");
+        this.background= this.add.tileSprite(0,0, config.width+1000, config.height+1000, config.businessTextureName + "Background");
         this.background.setOrigin(0,0);
 
 

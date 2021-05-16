@@ -101,6 +101,12 @@ class Base_property extends Phaser.Scene {
         scene.buy_button.on("pointerup", Scene2.nextDay, Scene2);
         scene.buy_button.on("pointerup", function() {
             config.player.savings += config.player.boat.profits;
+            console.log("gone fishing" + config.rainCounter);
+            if (config.rainedYesterday) {
+                console.log("rain bonus applied");
+                config.rainCounter = 0;
+                config.player.savings += config.player.boat.profits * 0.5;
+            }
         });
         scene.buy_button.on("pointerup", function(){
             this.back_to_map("fishing", scene);

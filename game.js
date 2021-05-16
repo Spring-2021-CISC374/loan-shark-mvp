@@ -126,6 +126,10 @@ class Player {
 
     buyProperty(beingBought){
         if ((this.savings >= beingBought.price) && (!beingBought.isOwned)){
+            if (beingBought.name == "business") {
+                console.log("Buying the business");
+                config.businessTextureName = "businessRestored";
+            }
             alert("property successfully purchased.");
             this.portfolio.assets.push(beingBought);
             this.savings -= beingBought.price;
@@ -255,6 +259,9 @@ var config = {
         }
     },
     totalTime: 0,
+    rainCounter: 0,
+    rainAlert: false,
+    rainedYesterday: false,
     player: new Player(),
     upgrades: {
         advertising : new Upgrade("advertising", 10000, 1000, false),
@@ -284,6 +291,7 @@ var config = {
          new Property("business", 5000, 100000),
          new Property("restaurant", 7000, 150000),
     ],
+    businessTextureName: "businessOld",
     loans:[
         new Loan("Loan 1", 1000, .08, 14),
         new Loan("Loan 2", 2000, .06, 35),

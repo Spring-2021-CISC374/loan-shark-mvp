@@ -8,7 +8,7 @@ class Scene2 extends Phaser.Scene {
 
     constructor() {
         super("playGame");
-        config.totalTime = 0;
+        config.totalTime = 420;
         this.timeRate = 4;
         this.timeRateCounter = 0;
         this.currentDay = 0;
@@ -52,6 +52,8 @@ class Scene2 extends Phaser.Scene {
         this.roadVert.setOrigin(0,0);
         this.sign = this.add.image(690, 70, "billboard");
         this.logo = this.add.image(680, 60, "logo");
+
+        
         
         this.roadedge = this.add.image(160,405, "roadedge");
         this.roadedge.angle = 90;
@@ -64,13 +66,13 @@ class Scene2 extends Phaser.Scene {
         this.home = this.physics.add.image(460, 100, "house");
 
         //Store
-        this.business = this.physics.add.image(220, 240, "businessOld");
+        console.log(config.businessTextureName);
+        this.business = this.physics.add.image(220, 240, config.businessTextureName);
         this.business.body.setSize(60,60);
         this.business.body.setOffset(10,20);
 
         this.boatShop = this.physics.add.image(60, 250, "shop");
         this.boatShop.body.setSize(100,70);
-    
 
         //Restaurant
         this.restaurant = this.physics.add.image(580, 240, "restaurant");
@@ -82,6 +84,9 @@ class Scene2 extends Phaser.Scene {
         this.boat = this.physics.add.image(180, 540, config.player.boat.name);
         this.boat.body.setSize(120,40);
         this.boat.angle = 180;
+
+        
+
 
         //this.rowboat = this.add.image(240, 550, "rowboat");
         //this.speedboat = this.add.image(684, 546, "speedboat");
@@ -96,6 +101,9 @@ class Scene2 extends Phaser.Scene {
         
         
         this.player_anim(this);
+        this.rain = this.add.tileSprite(0,0, 1800, 1800, "rain");
+        this.rain.visible = false;
+
         this.physics.add.overlap(this.player, this.boat, this.tada, null, this);
         this.physics.add.overlap(this.player, this.business, this.businessScene, null, this);
         this.physics.add.overlap(this.player, this.home, this.goHome, null, this);
@@ -107,6 +115,8 @@ class Scene2 extends Phaser.Scene {
 
         this.physics.add.collider(this.player,this.water);
         this.physics.add.overlap(this.player, this.house2, this.houseRepair, null, this);
+
+    
     }
     businessScene() {
         //this.scene.stop("menuS")
@@ -151,7 +161,12 @@ class Scene2 extends Phaser.Scene {
         this.movePlayerManager();
         //this.loadMenu();
         this.updateTimeOfDay();
-
+        if (config.rainCounter > -300) {
+            this.rain.visible = true;
+            this.updateRain();
+        } else {
+            this.rain.visible = false;
+        }
         //adds your daily returns once per day at midnight
         if ((config.totalTime%1440 == 421) && (this.timeRateCounter == 0)){
             this.score += config.player.portfolio.dailyReturns(this.currentDay);
@@ -159,10 +174,19 @@ class Scene2 extends Phaser.Scene {
         }
 
     }
+    updateRain() {
+        config.rainCounter--;
+        if (config.rainCounter % 100 == 0)
+            console.log(config.rainCounter);
+        this.rain.setAlpha((config.rainCounter+300)/1000);
+        this.rain.tilePositionX += 0.5;
+        this.rain.tilePositionY -= .8;
+    }
     updateShoreline() {
         this.sandedge.tilePositionX += Math.random() * .18 - 0.09;
         this.water.tilePositionY += Math.random() * 0.05 + 0.05;
         this.water.tilePositionX += Math.random() * .08- 0.04;
+
     }
     
 
@@ -250,13 +274,26 @@ class Scene2 extends Phaser.Scene {
             this.totalTime+=420;
         }
         */
-
+        if (config.rainCounter > 0) {
+            config.rainedYesterday = true;
+            config.rainCounter = 0;
+        }
+        else {
+            config.rainedYesterday = false;
+            config.rainCounter = -300;
+            var rainChance = Math.random();
+            console.log(rainChance);
+            if (rainChance < 0.5)
+                config.rainCounter = 2000;
+        }
+            
         
-
+        
         console.log(config.totalTime);
         config.totalTime+=(1440-(config.totalTime%1440));
         config.totalTime+=420;
         console.log(config.totalTime);
+        
 
         //this.score += config.player.portfolio.dailyReturns(this.currentDay);
         //this.scoreLabel.text ="Money:" +this.score.toString();
@@ -286,6 +323,10 @@ class Scene2 extends Phaser.Scene {
         }
         if (this.hour == 0)
             this.hour = 12;
+        if (config.totalTime % 1440 == 440 && config.rainCounter > 0 && !config.rainAlert) {
+            alert("it is currently raining!\nEffect: Gain more money for fishing in the rain");
+            config.rainAlert = true;
+        }
         this.currentDay = ((config.totalTime/1440) | 0) + 1;
         this.displayTime = ("Day " + this.currentDay + ", " + this.hour.toString() + ":"  + this.minute.toString() + " " + this.timeSuffix);
 
