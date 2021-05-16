@@ -66,7 +66,6 @@ class Scene2 extends Phaser.Scene {
         this.home = this.physics.add.image(460, 100, "house");
 
         //Store
-        console.log(config.businessTextureName);
         this.business = this.physics.add.image(220, 240, config.businessTextureName);
         this.business.body.setSize(60,60);
         this.business.body.setOffset(10,20);
@@ -151,7 +150,6 @@ class Scene2 extends Phaser.Scene {
         this.scene.switch("playGame","bank");
     }
     tada() {
-        console.log("trigger boat scene");
         this.scene.start("boat_scene");
     }
     update() {
@@ -283,7 +281,7 @@ class Scene2 extends Phaser.Scene {
             config.rainCounter = -300;
             var rainChance = Math.random();
             console.log(rainChance);
-            if (rainChance < 0.5)
+            if (rainChance < 0.4)
                 config.rainCounter = 2000;
         }
             

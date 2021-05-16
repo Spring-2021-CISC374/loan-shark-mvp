@@ -23,7 +23,7 @@ class Scene1 extends Phaser.Scene {
         this.load.image("house", "assets/objects/ViableHouse1.png");
         this.load.image("house2", "assets/objects/ViableHouse2.png");
 
-        this.load.image("boatUpgrades", "assets/textures/dockBoat.jpg");
+        this.load.image("boatUpgrades", "assets/textures/ocean.png"); //credit: https://twitter.com/pixil_art/status/1207985208068378625
         
         this.load.image("home", "assets/objects/fishhut.jpg", {
             frameWidth: 128,
