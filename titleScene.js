@@ -5,6 +5,7 @@ class titleScene extends Phaser.Scene{
 
     preload(){
             //lOADING IN THE ASSETS YO!
+        this.load.audio("theme", "assets/sound/sci-fi_platformer12.mp3");
         this.load.image("logo", "assets/logos/loanSharkLogo.png");
         this.load.image("play", "assets/buttons/button_play.png");
         this.load.image("info", "assets/buttons/button_info.png");

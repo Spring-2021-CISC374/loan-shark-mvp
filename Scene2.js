@@ -32,7 +32,19 @@ class Scene2 extends Phaser.Scene {
 
     }
     create() {
+        //background music
+        this.music = this.sound.add("theme");
 
+        var musicConfig ={
+            mute: false,
+            volume: .1,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: false,
+            delay: 0
+        }
+        this.music.play(musicConfig);
         //console.log("RANDOM NUMBER" + Math.floor(Math.random() * 100));
 
         config.player.boat = config.boatList[config.player.boatIndex];
