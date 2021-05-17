@@ -1,3 +1,5 @@
+const { config } = require("webpack");
+
 class Base_property extends Phaser.Scene {
     totalTime;
     
@@ -136,19 +138,37 @@ class Base_property extends Phaser.Scene {
  
     buy_property(asset){
         console.log("buy property");
-        var test = this.scene.get('menuS');
+        var menu = this.scene.get('menuS');
         
         var score = config.player.buyProperty(asset);
         if(score != 0){
-            test.createInfoImage(asset, config.player.portfolio.assets.length-1);
+            menu.createInfoImage2(asset, config.player.portfolio.assets.length-1);
         }
         console.log(config.player.portfolio);
     }
 
     buy_upgrade(upgrade, property){
+
+        var index = 0;
+
+        config.player.portfolio.assets.forEach(function(item){
+            var found = false;
+            if(item.name == property.name){
+                found = true;
+            }
+            if(!found){
+                index+=1;
+            }
+        
+        });
+
+        var menu = this.scene.get('menuS');
+
+        
         console.log("buy upgrade");
         
         config.player.buyUpgrade(upgrade, property);
+        menu.addUpgradeInfo(config.player.portfolio.assets[index], index);
         console.log(config.player.portfolio);
     }
 
