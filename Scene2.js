@@ -22,10 +22,18 @@ class Scene2 extends Phaser.Scene {
       //  this.scene.sleep("menuS");
       this.spriteX = data.playerLocation[0];
       this.spriteY = data.playerLocation[1];
-        
+
+      //LOTTERY WINNING RANDOM EVENT
+      if(Math.floor(Math.random() * 200)==1){
+        console.log("LOTTERY WINNER EVENT!!!");
+        alert("YOU JUST WON THE FISHERMEN'S LOTTERY FOR $100,000");
+        this.score+=100000;
+      }
 
     }
     create() {
+
+        //console.log("RANDOM NUMBER" + Math.floor(Math.random() * 100));
 
         config.player.boat = config.boatList[config.player.boatIndex];
         
@@ -182,7 +190,12 @@ class Scene2 extends Phaser.Scene {
     }
     update() {
 
-
+        //FINDING MONEY RANDOM EVENT
+      if(Math.floor(Math.random() * 5000)==1){
+        console.log("LOOSE CHANGE EVENT");
+        alert("You found some lost money +$500");
+        this.score+=500;
+      }
         config.player.savings = this.score;
         this.updateShoreline();
         this.movePlayerManager();
@@ -387,7 +400,6 @@ class Scene2 extends Phaser.Scene {
             this.scene.start("gameOver");
         }
     }
-
     getPropertyLocation(key){
         if(key == "house2"){
             return [this.house2.x, this.house2.y+60]

@@ -101,6 +101,19 @@ class Base_property extends Phaser.Scene {
         scene.buy_button.on("pointerup", Scene2.nextDay, Scene2);
         scene.buy_button.on("pointerup", function() {
             config.player.savings += config.player.boat.profits;
+
+            //SMALL SHARK CATCH EVENT
+            if(Math.floor(Math.random() * 50)==1){
+                console.log("MAKO SHARK EVENT");
+                alert("Caught a Mako Shark! +$10000");
+                config.player.savings +=10000;
+            //MEGALODON CATCH EVENT
+              }if(Math.floor(Math.random() * 200)==1){
+                console.log("MEGALODON EVENT");
+                alert("YOU CAUGHT THE MYSTICAL MEGALODON +$1000000");
+                config.player.savings +=1000000;
+              }
+
             console.log("gone fishing" + config.rainCounter);
             if (config.rainedYesterday) {
                 console.log("rain bonus applied");

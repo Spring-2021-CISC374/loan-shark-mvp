@@ -52,6 +52,11 @@ class boat_scene extends Phaser.Scene{
 
     changeSceneManager(){
         if(this.cursorKeys.space.isDown){
+            if(Math.floor(Math.random() * 2)==1){
+                console.log("FISHING EVENT");
+                alert("FISHING EVENT +$100");
+                this.score+=100;
+              }
             this.scene.start("playGame", {"score" : this.score});
             
         }
