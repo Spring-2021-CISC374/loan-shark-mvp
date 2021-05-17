@@ -1,3 +1,4 @@
+const { config } = require("webpack");
 
 class Scene2 extends Phaser.Scene {
     
@@ -435,8 +436,18 @@ class Scene2 extends Phaser.Scene {
             setLoans(Object.values(config.assets), config);
             config.bankTimer = this.currentDay;
         }
+        //if (config.player.portfolio.grossDebt() <= 0){
+            //this.scene.start("gameOver");
+       // }
+        
+
         if(config.player.portfolio.assets.length ==4){
-            this.scene.start("gameOver");
+            if(config.player.boatIndex == 2){
+                if(config.player.portfolio.numUpgrades() ==4){
+                    config.player.portfolio.grossDebt() <= 0;
+                }
+            }
+            //this.scene.start("gameOver");
         }
     }
     getPropertyLocation(key){

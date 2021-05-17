@@ -91,7 +91,7 @@ class Scene1 extends Phaser.Scene {
         var isA = this.scene.isActive("playGame");
        // console.log(isA);
         if((isA)){
-            this.input.keyboard.on('keydown-A', function (event) {
+            this.input.keyboard.on('keydown-M', function (event) {
             this.scene.bringToTop("menuS");
             this.scene.wake("menuS");
             

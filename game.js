@@ -11,7 +11,7 @@ class Loan{
         this.principle = principle;
         this.interestRate = interest;
         this.duration = months;
-        var comp= Math.pow((1+this.interestRate), this.duration);
+        var comp= Math.pow((1+this.interestRate), this.duration/7);
         this.owed= this.principle*comp;
         this.monthsPaid =0;
         
@@ -21,14 +21,14 @@ class Loan{
         var comp = Math.pow((1+this.interestRate), this.duration/7);
         var top = this.interestRate*comp;
         var bottom = comp-1;
-        return (this.principle*(top/bottom)).toFixed(2);
+        return (this.principle*(top/bottom));
     }
 
     toString(){
         var amount = "Loan amount: $" + this.principle.toLocaleString();
         var interest = "Intrest Rate: " + this.interestRate*100 + "% per week";
         var duration = "Duration: " + this.duration + " days";
-        var payment = "Payment: $" + this.getPayment().toLocaleString() + " per week";
+        var payment = "Payment: $" + this.getPayment().toFixed(2).toLocaleString() + " per week";
         return this.name+"\n"+amount+"\n"+interest+"\n"+duration+"\n"+payment;
     }
 
@@ -43,6 +43,7 @@ class Property{
         this.upgrades = [];
         this.isOwned = false;
     }
+
 
     addUpgrade(Upgrade){
         this.upgrades.push(Upgrade);
@@ -73,6 +74,22 @@ class Property{
             return name+"\n"+dailyIncome+"\n"+upgrades+"\n";
         }
         return name+"\n"+dailyIncome+"\n";
+    }
+
+    toStringMenu(){
+        var dailyIncome = "Daily Income: $" + this.getProfit() + "/day";
+        var price = "Price: $" + this.price;
+        var upgrades = "Upgrades owned: \n";
+        this.upgrades.forEach(element => {
+            upgrades += element.name + "\n";
+        })
+        if (!this.isOwned) {
+            return "\n"+dailyIncome+"\n"+price;
+        }
+        if (this.upgrades.length > 0){
+            return dailyIncome+"\n"+upgrades+"\n";
+        }
+        return dailyIncome+"\n"+price +"\n"+ "Upgrades available at location!";
     }
 }
 class Upgrade{
@@ -189,6 +206,16 @@ class Portfolio {
         this.loans = [];
     }
 
+    numUpgrades(){
+        var total = 0;
+        if (this.assets.length > 4){
+            this.assets.forEach (element =>{
+                total += this.upgrades.length;
+            })
+        }
+        return total;
+    }
+
 
     //Daily returns only pays off loans every 30 days, but earns income every day
     dailyReturns(currentDay){
@@ -205,13 +232,31 @@ class Portfolio {
         return this.dailyReturn;
     }
 
+    returnAmount(){
+        var returns = 0;
+        this.assets.forEach(element => {
+            returns += Number(element.getProfit());
+        });
+
+        return returns;
+    }
+
+    paymentAmount(){
+        var amount = 0;
+        this.loans.forEach(element => {
+            amount += element.getPayment();
+        });
+
+        return amount;
+    }
+
     grossDebt(){
         var tot=0;
         this.loans.forEach(function(item){
             tot += item.owed;
         });
 
-        return tot.toFixed(2).toLocaleString();
+        return tot;
     }
     totalAssets(){
         var tot=0;
@@ -240,6 +285,8 @@ class Portfolio {
         //});
         return "You own " + this.assets.length + " properties.";
     }
+
+    
 
     
 
@@ -273,11 +320,11 @@ var config = {
         gasPumps : new Upgrade("gaspumps outside", 150000, 5500, false),
     },
     assets: {
-        house : new Property("house2", 4000, 170000),
+        house : new Property("house2", 4000, 27000),
         //boat : new Property("boat", 2000, 75000),
-        shop : new Property("shop", 9000, 200000),
-        store : new Property("business", 5000, 100000),
-        grocery : new Property("restaurant", 7000, 150000),
+        shop : new Property("shop", 9000, 37000),
+        store : new Property("business", 5000, 25000),
+        grocery : new Property("restaurant", 7000, 31000),
     },
     boatList: [
         //       "name", profits, upgradeCost
@@ -286,11 +333,11 @@ var config = {
         new Boat("speedboat", 8000, 9999999999),
     ],
     assetsList: [
-         new Property("house2", 4000, 170000),
+         new Property("house2", 4000, 27000),
          //new Property("boat", 2000, 75000),
-         new Property("shop", 9000, 200000),
-         new Property("business", 5000, 100000),
-         new Property("restaurant", 7000, 150000),
+         new Property("shop", 9000, 37000),
+         new Property("business", 5000, 25000),
+         new Property("restaurant", 7000, 31000),
     ],
     businessTextureName: "businessOld",
     loans:[
@@ -305,6 +352,70 @@ var config = {
     hiScore :0
 
 }
+function resetData(){
+    var config = {
+        width:800,
+        height:600,
+        backgroundColor:0x000000,
+        scene: [Scene1,menuScene,Scene2, titleScene,Base_property, home_scene, location_contract_scene, Beach, Bank,
+             game_over_scene, shop_scene, store_scene, grocery_scene,boat_scene],
+        physics: {
+            default: "arcade",
+            arcade:{
+                debug: false
+            }
+        },
+        totalTime: 0,
+        rainCounter: 0,
+        rainAlert: false,
+        rainedYesterday: false,
+        lightLevel: 0.6,
+        player: new Player(),
+        upgrades: {
+            advertising : new Upgrade("advertising", 10000, 1000, false),
+            repairs : new Upgrade("repairs", 30000, 5000, false),
+            customerService : new Upgrade("improved customer service", 25000, 1500, false),
+            backyardPool : new Upgrade("install swimming pool", 40000, 2000, false),
+            extraInventory : new Upgrade("extended inventory", 100000, 4000, false),
+            gasPumps : new Upgrade("gaspumps outside", 150000, 5500, false),
+        },
+        assets: {
+            house : new Property("house2", 4000, 170000),
+            //boat : new Property("boat", 2000, 75000),
+            shop : new Property("shop", 9000, 200000),
+            store : new Property("business", 5000, 100000),
+            grocery : new Property("restaurant", 7000, 150000),
+        },
+        boatList: [
+            //       "name", profits, upgradeCost
+            new Boat("raft", 2000, 10000),
+            new Boat("rowboat", 4000, 20000),
+            new Boat("speedboat", 8000, 9999999999),
+        ],
+        assetsList: [
+             new Property("house2", 4000, 170000),
+             //new Property("boat", 2000, 75000),
+             new Property("shop", 9000, 200000),
+             new Property("business", 5000, 100000),
+             new Property("restaurant", 7000, 150000),
+        ],
+        businessTextureName: "businessOld",
+        loans:[
+            new Loan("Loan 1", 1000, .08, 14),
+            new Loan("Loan 2", 2000, .06, 35),
+            new Loan("Loan 3", 1500, .10, 21),
+          
+    
+            //new Loan("boat")
+        ],
+        bankTimer :1,
+        hiScore :0
+    
+    }
+    setLoans(Object.values(config.assets), config);
+    return config;
+}
+
 function hiScore(list, config){
     var total = 0;
     var i = 0;
