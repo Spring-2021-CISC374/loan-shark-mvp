@@ -203,7 +203,7 @@ class Scene2 extends Phaser.Scene {
     update() {
 
         //FINDING MONEY RANDOM EVENT
-      if(Math.floor(Math.random() * 5000)==1){
+      if(Math.floor(Math.random() * 7500)==1){
         console.log("LOOSE CHANGE EVENT");
         alert("You found some lost money +$500");
         this.score+=500;
