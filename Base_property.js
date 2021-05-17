@@ -1,4 +1,4 @@
-const { config } = require("webpack");
+//const { config } = require("webpack");
 
 class Base_property extends Phaser.Scene {
     totalTime;

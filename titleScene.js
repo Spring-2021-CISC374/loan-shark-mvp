@@ -28,7 +28,8 @@ class titleScene extends Phaser.Scene{
         this.info_button = this.add.image(400, 400, "info");
         this.info_button.setInteractive();
         this.info_button.on("pointerup", function(){
-            alert("Loan shark is an open world property buing game.\nWin by trying to buy the most amount of properties\n with the least amount of debt from the bank.")
+            alert("Welcome to Loan Shark!\nYour goal is to buy all the properites and upgrades on the map in the least amount of time possible. \nThe game will not end until you have all properites and no debt."+
+            "\nPress m on your keyboard to open the menu and see your money,debt, and income.\nUse arrow keys to move your charecter.")
         }, this);
 
     }
@@ -40,6 +41,8 @@ class titleScene extends Phaser.Scene{
     }
     leaveMenu(){
             //LEAVES THE MENU AND STARTS THE GAME YO!
+            alert("Welcome to Loan Shark!\nYour goal is to buy all the properites and upgrades on the map in the least amount of time possible. \nThe game will not end until you have all properites and no debt."+
+            "\nPress m on your keyboard to open the menu and see your money,debt, and income.\nUse arrow keys to move your charecter.")
             this.scene.start("playGame", {"score" : 10, "playerLocation": [300, 150]}, {"totalTime" : 0});
         };
     

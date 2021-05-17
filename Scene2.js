@@ -1,4 +1,4 @@
-const { config } = require("webpack");
+//const { config } = require("webpack");
 
 class Scene2 extends Phaser.Scene {
     
@@ -203,7 +203,7 @@ class Scene2 extends Phaser.Scene {
         }
     }
     update() {
-        console.log(config.lightFile);
+        //console.log(config.lightFile);
         //FINDING MONEY RANDOM EVENT
       if(Math.floor(Math.random() * 7500)==1){
         console.log("LOOSE CHANGE EVENT");
