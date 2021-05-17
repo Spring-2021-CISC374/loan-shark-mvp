@@ -38,7 +38,7 @@ class Scene2 extends Phaser.Scene {
 
         var musicConfig ={
             mute: false,
-            volume: .1,
+            volume: .05,
             rate: 1,
             detune: 0,
             seek: 0,
@@ -393,7 +393,7 @@ class Scene2 extends Phaser.Scene {
         if (config.totalTime % 144 == 0 && config.rainCounter == -300) {
             var rainChance = Math.random();
             console.log(rainChance);
-            if (rainChance < 0.5)
+            if (rainChance < 0.015)
                 config.rainCounter = -400;
         }
         if (config.totalTime%1440 > 300 && config.totalTime%1440 < 1100 && config.lightLevel < 1) {
