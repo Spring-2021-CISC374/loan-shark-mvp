@@ -115,7 +115,8 @@ class Scene2 extends Phaser.Scene {
         //this.player = this.physics.add.sprite(300,150, "player");
 
         
-       // this.scoreLabel = this.add.bitmapText(10, 5, "pixelFont","Money:  " + this.score, 16);
+        this.scoreLabel = this.add.bitmapText(10, 20, "pixelFont"," ", 16);
+        this.alertCountdown = 100;
         //this.scoreLabel2 = this.add.bitmapText(10, 20, "pixelFont","Debt: " + config.player.portfolio.grossDebt(), 16);
         this.timeLabel = this.add.bitmapText(10, 5, "pixelFont","Time: " + config.totalTime, 16);
         
@@ -207,7 +208,10 @@ class Scene2 extends Phaser.Scene {
         //FINDING MONEY RANDOM EVENT
       if(Math.floor(Math.random() * 7500)==1){
         console.log("LOOSE CHANGE EVENT");
-        alert("You found some lost money +$500");
+        if (config.rainCounter < 0) {
+            this.scoreLabel.text="You found some lost money +$500";
+            this.alertCountdown = 200;
+        }
         this.score+=500;
       }
         config.player.savings = this.score;
@@ -344,7 +348,7 @@ class Scene2 extends Phaser.Scene {
             var rainChance = Math.random();
             console.log(rainChance);
             if (rainChance < 0.15)
-                config.rainCounter = 2000;
+                config.rainCounter = 3000;
         }
             
         
@@ -366,6 +370,10 @@ class Scene2 extends Phaser.Scene {
         if (this.timeRateCounter == this.timeRate){
             this.timeRateCounter = 0;
             config.totalTime += 1;
+            if (this.alertCountdown > 0)
+                this.alertCountdown--;
+            else
+                this.scoreLabel.text = " ";
         }
         if (config.totalTime % 144 == 0 && config.rainCounter == -300) {
             var rainChance = Math.random();
@@ -398,7 +406,9 @@ class Scene2 extends Phaser.Scene {
         if (this.hour == 0)
             this.hour = 12;
         if (config.rainCounter > 0 && !config.rainAlert) {
-            alert("it has started to rain!\nEffect: Gain more money for fishing in the rain");
+            
+            this.scoreLabel.text="it has started to rain!\nEffect: Gain more money for fishing in the rain";
+            this.alertCountdown = 300;
             config.rainAlert = true;
         }
         this.currentDay = ((config.totalTime/1440) | 0) + 1;
