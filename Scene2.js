@@ -194,9 +194,14 @@ class Scene2 extends Phaser.Scene {
         config.rainCounter = 2000;
     }
     startRain() {
-        console.log(this.rainBuildup);
-        this.rainSound.play();
+        console.log("buildup: " + this.rainBuildup + "volume: " + this.rainSound.volume);
+        
+        if (this.rainBuildup == 0) {
+            this.rainSound.volume = 0;
+            this.rainSound.play();
+        }
         this.rain.visible = true;
+        this.rainSound.volume += 0.001;
         this.rain.setAlpha((this.rainBuildup++)/1000);
         this.rain.tilePositionX += 0.5;
         this.rain.tilePositionY -= .8;
@@ -206,7 +211,6 @@ class Scene2 extends Phaser.Scene {
         }
     }
     update() {
-
         //FINDING MONEY RANDOM EVENT
       if(Math.floor(Math.random() * 7500)==1){
         console.log("LOOSE CHANGE EVENT");
@@ -227,6 +231,7 @@ class Scene2 extends Phaser.Scene {
         } else {
             if (config.rainCounter != -400) {
                 this.rain.visible = false;
+                this.rainSound.volume = 0;
             } else {
                 this.startRain();
             }
@@ -245,6 +250,9 @@ class Scene2 extends Phaser.Scene {
         if (config.rainCounter % 100 == 0)
             console.log(config.rainCounter);
         this.rain.setAlpha((config.rainCounter+300)/1000);
+        if (config.rainCounter < 1000 && config.rainCounter > 0)
+            this.rainSound.volume -= 0.0005;
+        
         this.rain.tilePositionX += 0.5;
         this.rain.tilePositionY -= .8;
     }
@@ -343,14 +351,18 @@ class Scene2 extends Phaser.Scene {
         if (config.rainCounter > 0) {
             config.rainedYesterday = true;
             config.rainCounter = 0;
+            this.rainSound.stop()
         }
         else {
             config.rainedYesterday = false;
             config.rainCounter = -300;
             var rainChance = Math.random();
             console.log(rainChance);
-            if (rainChance < 0.15)
+            if (rainChance < 0.15) {
                 config.rainCounter = 3000;
+                this.rainSound.volume = 1;
+                this.rainSound.play();
+            }
         }
             
         
@@ -371,6 +383,7 @@ class Scene2 extends Phaser.Scene {
         this.timeRateCounter++;
         if (this.timeRateCounter == this.timeRate){
             this.timeRateCounter = 0;
+            
             config.totalTime += 1;
             if (this.alertCountdown > 0)
                 this.alertCountdown--;
@@ -380,7 +393,7 @@ class Scene2 extends Phaser.Scene {
         if (config.totalTime % 144 == 0 && config.rainCounter == -300) {
             var rainChance = Math.random();
             console.log(rainChance);
-            if (rainChance < 0.015)
+            if (rainChance < 0.5)
                 config.rainCounter = -400;
         }
         if (config.totalTime%1440 > 300 && config.totalTime%1440 < 1100 && config.lightLevel < 1) {
