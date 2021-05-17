@@ -34,6 +34,7 @@ class Scene2 extends Phaser.Scene {
     create() {
         //background music
         this.music = this.sound.add("theme");
+        this.rainSound = this.sound.add("rainSound");
 
         var musicConfig ={
             mute: false,
@@ -193,6 +194,7 @@ class Scene2 extends Phaser.Scene {
     }
     startRain() {
         console.log(this.rainBuildup);
+        this.rainSound.play();
         this.rain.visible = true;
         this.rain.setAlpha((this.rainBuildup++)/1000);
         this.rain.tilePositionX += 0.5;
