@@ -9,6 +9,7 @@ class Scene1 extends Phaser.Scene {
 
     preload() {
         this.load.audio("theme", "assets/sounds/CentralCity.ogg");
+        this.load.audio("rainSound", "assets/sounds/rain.ogg");
         this.load.image("background", "assets/textures/grass.png");
         this.load.image("water", "assets/textures/water.png");
         this.load.image("road", "assets/textures/road.png");
