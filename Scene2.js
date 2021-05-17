@@ -41,10 +41,12 @@ class Scene2 extends Phaser.Scene {
             rate: 1,
             detune: 0,
             seek: 0,
-            loop: false,
+            loop: true,
             delay: 0
         }
-        this.music.play(musicConfig);
+        if (this.currentDay==0){
+            this.music.play(musicConfig);
+        }
         //console.log("RANDOM NUMBER" + Math.floor(Math.random() * 100));
 
         config.player.boat = config.boatList[config.player.boatIndex];
