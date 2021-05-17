@@ -128,6 +128,7 @@ class Player {
         if ((this.savings >= beingBought.price) && (!beingBought.isOwned)){
             if (beingBought.name == "business") {
                 console.log("Buying the business");
+                config.lightFile="light";
                 config.businessTextureName = "businessRestored";
             }
             alert("property successfully purchased.");
@@ -262,6 +263,7 @@ var config = {
     rainCounter: 0,
     rainAlert: false,
     rainedYesterday: false,
+    lightFile: "lightNoStore",
     lightLevel: 0.6,
     player: new Player(),
     upgrades: {

@@ -129,7 +129,8 @@ class Scene2 extends Phaser.Scene {
         this.rain = this.add.tileSprite(0,0, 1800, 1800, "rain");
         this.rain.visible = false;
         this.rainBuildup = 0;
-        this.light = this.add.image(0,0,"light");
+
+        this.light = this.add.image(0,0,config.lightFile);
         this.light.setOrigin(0,0);
         this.light.setAlpha(0.1);
         this.physics.add.overlap(this.player, this.boat, this.tada, null, this);
@@ -201,7 +202,7 @@ class Scene2 extends Phaser.Scene {
         }
     }
     update() {
-        
+        console.log(config.lightFile);
         //FINDING MONEY RANDOM EVENT
       if(Math.floor(Math.random() * 7500)==1){
         console.log("LOOSE CHANGE EVENT");
@@ -386,7 +387,7 @@ class Scene2 extends Phaser.Scene {
         if (config.totalTime % 144 == 0 && config.rainCounter == -300) {
             var rainChance = Math.random();
             console.log(rainChance);
-            if (rainChance < 0.5)
+            if (rainChance < 0.015)
                 config.rainCounter = -400;
         }
         if (config.totalTime%1440 > 300 && config.totalTime%1440 < 1100 && config.lightLevel < 1) {

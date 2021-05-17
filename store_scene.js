@@ -15,7 +15,7 @@ class store_scene extends Phaser.Scene{
             frameWidth: 400,
             frameHeight: 300
         });
-        this.load.image("businessRestoredBackground", "assets/textures/businessOldBackground.png", {
+        this.load.image("businessRestoredBackground", "assets/textures/businessRestoredBackground.png", {
             frameWidth: 400,
             frameHeight: 300
         });
