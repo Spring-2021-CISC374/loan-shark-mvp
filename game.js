@@ -229,7 +229,7 @@ class Portfolio {
         this.assets.forEach(element => {
             this.dailyReturn += element.getProfit();
         });
-        if (currentDay%2 == 0){
+        if (currentDay%7 == 0){
             this.loans.forEach(element => {
                 if(element.owed > 0){
                     element.makePayment();
