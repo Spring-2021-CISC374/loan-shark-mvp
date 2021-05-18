@@ -1,4 +1,5 @@
 
+
 class Scene2 extends Phaser.Scene {
     
     displayTime;
@@ -217,6 +218,10 @@ class Scene2 extends Phaser.Scene {
         this.movePlayerManager();
         //this.loadMenu();
         this.updateTimeOfDay();
+        if (config.rainCounter == -300){
+            this.rainSound.volume = 0;
+            this.rainSound.stop();
+        }
         if (config.rainCounter > -300) {
             this.rain.visible = true;
             this.updateRain();
@@ -336,27 +341,26 @@ class Scene2 extends Phaser.Scene {
 
     nextDay(){
         this.score+=100;
-        
+        this.rainSound.volume = 0;
         /*
         if((this.totalTime%1440)!=0){
             this.totalTime+=(this.totalTime%1440);
             this.totalTime+=420;
         }
         */
+        this.rainSound.stop();
         if (config.rainCounter > 0) {
             config.rainedYesterday = true;
             config.rainCounter = 0;
-            this.rainSound.stop()
+            this.rainSound.stop();
         }
         else {
             config.rainedYesterday = false;
             config.rainCounter = -300;
             var rainChance = Math.random();
             console.log(rainChance);
-            if (rainChance < 0.5) {
-                config.rainCounter = 3000;
-                this.rainSound.volume = 2;
-                this.rainSound.play();
+            if (rainChance < 0.2) {
+                config.rainCounter = -400;
             }
         }
             

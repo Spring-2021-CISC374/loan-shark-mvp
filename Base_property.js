@@ -119,7 +119,7 @@ class Base_property extends Phaser.Scene {
             console.log("gone fishing" + config.rainCounter);
             if (config.rainedYesterday) {
                 console.log("rain bonus applied");
-                config.rainCounter = 0;
+                config.rainCounter = -300;
                 config.player.savings += config.player.boat.profits * 0.5;
             }
         });
