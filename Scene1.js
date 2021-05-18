@@ -30,10 +30,7 @@ class Scene1 extends Phaser.Scene {
 
         this.load.image("boatUpgrades", "assets/textures/ocean.png"); //credit: https://twitter.com/pixil_art/status/1207985208068378625
         
-        this.load.image("home", "assets/objects/fishhut.jpg", {
-            frameWidth: 128,
-            frameHeight: 128
-        });
+        
         
         this.load.image("businessOld", "assets/objects/businessOld.png");
         this.load.image("businessRestored", "assets/objects/business.png");
