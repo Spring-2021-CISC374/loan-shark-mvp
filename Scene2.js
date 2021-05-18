@@ -39,7 +39,7 @@ class Scene2 extends Phaser.Scene {
         
         var musicConfig ={
             mute: false,
-            volume: .04,
+            volume: .05,
             rate: 1,
             detune: 0,
             seek: 0,
