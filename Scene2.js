@@ -1,4 +1,3 @@
-//const { config } = require("webpack");
 
 class Scene2 extends Phaser.Scene {
     
@@ -40,12 +39,12 @@ class Scene2 extends Phaser.Scene {
         
         var musicConfig ={
             mute: false,
-            volume: .05,
+            volume: .04,
             rate: 1,
             detune: 0,
             seek: 0,
             loop: true,
-            delay: 0
+            delay: 0.5,
         }
         if (this.currentDay==0){ 
             this.music.play(musicConfig);
@@ -193,7 +192,7 @@ class Scene2 extends Phaser.Scene {
             this.rainSound.volume = 0;
         }
         this.rain.visible = true;
-        this.rainSound.volume += 0.002;
+        this.rainSound.volume += 0.001;
         this.rain.setAlpha((this.rainBuildup++)/1000);
         this.rain.tilePositionX += 0.5;
         this.rain.tilePositionY -= .8;
@@ -243,11 +242,12 @@ class Scene2 extends Phaser.Scene {
         if (config.rainCounter % 100 == 0)
             console.log(config.rainCounter);
         this.rain.setAlpha((config.rainCounter+300)/1000);
-        if (config.rainCounter < 1000 && config.rainCounter > 0) {
-            this.rainSound.volume -= 0.002;
+        if (config.rainCounter < 1000 && this.rainSound.volume > 0) {
+            this.rainSound.volume -= 0.0015;
             console.log(this.rainSound.volume);
         }
-        
+        if (this.rainSound.volume < 0.002)
+            this.rainSound.volume = 0;
         this.rain.tilePositionX += 0.5;
         this.rain.tilePositionY -= .8;
     }
@@ -387,18 +387,26 @@ class Scene2 extends Phaser.Scene {
         }
         if (config.totalTime % 144 == 0 && config.rainCounter == -300) {
             var rainChance = Math.random();
-            console.log(rainChance);
+            //console.log(rainChance);
             if (rainChance < 0.015)
                 config.rainCounter = -400;
         }
+        if (config.totalTime%1440 == 1100)
+            this.music.volume = 0.05;
         if (config.totalTime%1440 > 300 && config.totalTime%1440 < 1100 && config.lightLevel < 1) {
             config.lightLevel+= 0.0005;
+            //this.music.rate += 0.0000065;
+            this.music.volume += 0.000013;
             this.light.setAlpha(1-config.lightLevel);
         }
         if (config.totalTime%1440 > 1100) {
+            //this.music.rate -= 0.00001;
+            this.music.volume -= 0.00002;
             config.lightLevel -= 0.0005;
             this.light.setAlpha(1-config.lightLevel);
         }
+        if (config.totalTime == 3000 + Math.random * 1000 && !config.rainAlert)
+            config.rainCounter = -400;
         this.timeMod = config.totalTime % 720;
         if(config.totalTime%1440 >= 720){
             this.timeSuffix = "PM";

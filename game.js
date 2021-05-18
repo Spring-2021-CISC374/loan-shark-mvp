@@ -307,7 +307,7 @@ var config = {
         }
     },
     totalTime: 0,
-    rainCounter: 0,
+    rainCounter: -300,
     rainAlert: false,
     rainedYesterday: false,
     lightFile: "lightNoStore",
