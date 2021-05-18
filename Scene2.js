@@ -1,3 +1,6 @@
+//const { config } = require("webpack");
+
+const { config } = require("webpack");
 
 
 class Scene2 extends Phaser.Scene {
@@ -186,7 +189,7 @@ class Scene2 extends Phaser.Scene {
     
 
     startRain() {
-        console.log("buildup: " + this.rainBuildup + "volume: " + this.rainSound.volume);
+        //console.log("buildup: " + this.rainBuildup + "volume: " + this.rainSound.volume);
         
         if (this.rainBuildup == 0) {
             this.rainSound.play();
@@ -289,7 +292,7 @@ class Scene2 extends Phaser.Scene {
             isMoving = 1;
             if(this.player.y >0+this.player.height/2){
                 this.player.y -=1;
-                console.log(this.player.y);
+                //console.log(this.player.y);
             }
         }
         if(this.cursorKeys.down.isDown){
@@ -448,11 +451,13 @@ class Scene2 extends Phaser.Scene {
         
 
         if(config.player.portfolio.assets.length ==4){
-            if(config.player.boatIndex == 2){
-                if(config.player.portfolio.numUpgrades() ==4){
-                    config.player.portfolio.grossDebt() <= 0;
-                }
+            
+            if (config.player.portfolio.grossDebt() <= 0 || this.score > config.player.portfolio.grossDebt()){
+                this.scene.start("gameOver");
             }
+                    
+                
+            
             //this.scene.start("gameOver");
         }
     }

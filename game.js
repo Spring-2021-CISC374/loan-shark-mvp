@@ -32,6 +32,11 @@ class Loan{
         return this.name+"\n"+amount+"\n"+interest+"\n"+duration+"\n"+payment;
     }
 
+    makePayment(){
+        this.owed -= this.getPayment();
+        this.monthsPaid += 1;
+    }
+
     
 }
 
@@ -224,8 +229,11 @@ class Portfolio {
         this.assets.forEach(element => {
             this.dailyReturn += element.getProfit();
         });
-        if (currentDay%30 == 0){
+        if (currentDay%2 == 0){
             this.loans.forEach(element => {
+                if(element.owed > 0){
+                    element.makePayment();
+                }
                 this.dailyReturn -= element.getPayment();
             });
         }
